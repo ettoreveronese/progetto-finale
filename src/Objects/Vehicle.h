@@ -1,3 +1,5 @@
+// Autore: Ettore Veronese
+
 #ifndef VEHICLE_H
 #define VEHICLE_H
 

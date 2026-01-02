@@ -1,3 +1,5 @@
+// Autore: Ettore Veronese
+
 #include "Vehicle.h"
 
 #include <stdexcept>
