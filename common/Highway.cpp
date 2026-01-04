@@ -36,7 +36,7 @@ void Highway::loadHighwayData(const std::string& data_h){        // da leggere n
 	}
 
 	std::sort(gantries.begin(), gantries.end(),			// ordina i varchi, distanza crescente
-          [](const Gantry& a, const Gantry& b){				// usato anche in altre parti del progetto sotto consiglio del mio compagno Ettore
+          [](const Gantry& a, const Gantry& b){				// usato anche in altre parti del progetto sotto consiglio del mio compagno Ettore, molto utile
               return a.getGantryDist() < b.getGantryDist();
           });
 
@@ -60,19 +60,19 @@ void Highway::isValid() const{
 	double lastGantryDist = gantries[gantry_size-1].getGantryDist();
 	double lastJunctionDist = junctions[junction_size-1].getJunctionDist();
 
-	if(lastGantryDist > lastJunctionDist){
-		throw std::runtime_error("Error");
-	}
+	if(lastGantryDist > lastJunctionDist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}													
 
 	int v = 0; 		// indice varchi
     int s = 0; 		// indice svincoli
 
     while (v < gantries.size() && s < junctions.size()) {
-        	double dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());
+        	double dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 
         	if (dist < 1.0) {
             		throw std::runtime_error("Error");				// controlla che la distanza minima tra varco e svincolo sia 1km
-        	}
+        	}														// (complessità temporale migliorata dopo aver ordinato i vettori)
 
        		if (gantries[v].getGantryDist() < junctions[s].getJunctionDist()) {
             		++v;
