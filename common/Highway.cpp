@@ -27,3 +27,7 @@ void Highway::loadHighwayData(const std::string& data_h){
 	// utilizziamo un file highway.txt con solamente type == V|S, senza il bisogno di creare un'eccezione
 	}
 }
+
+// MANCA LA FUNZIONE isValid() !!!!!!!!!
+
+
