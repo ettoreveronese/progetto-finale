@@ -8,7 +8,7 @@ private:
 	int id;				        // # del varco
 	double dist;				// distanza (in km)
 public:
-	Gate(const int& gantry_id, const double& dist);
+	Gantry(const int& id, const double& dist);
 	int getId() const;
 	double getDist() const;
 };
