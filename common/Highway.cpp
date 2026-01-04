@@ -54,11 +54,11 @@ void Highway::isValid() const{
 		throw std::runtime_error("Error"); 		// devono essere presenti almeno 2 varchi
 	}
 
-	int gantry_size = gantries.size();
-	int junction_size = junctions.size();
+	int num_gantry = gantries.size();
+	int num_junctions = junctions.size();
 
-	double lastGantryDist = gantries[gantry_size-1].getGantryDist();
-	double lastJunctionDist = junctions[junction_size-1].getJunctionDist();
+	double lastGantryDist = gantries[num_gantry - 1].getGantryDist();
+	double lastJunctionDist = junctions[num_junction- 1].getJunctionDist();
 
 	if(lastGantryDist > lastJunctionDist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
@@ -81,3 +81,4 @@ void Highway::isValid() const{
         	}
     	}
 }
+
