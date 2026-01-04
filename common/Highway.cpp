@@ -3,6 +3,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <cmath>
+#include <algorithm>
 #include "Highway.h"
 
 void Highway::loadHighwayData(const std::string& data_h){        // da leggere nel main
@@ -33,6 +34,17 @@ void Highway::loadHighwayData(const std::string& data_h){        // da leggere n
 			throw std::runtime_error("Error");		
 		}
 	}
+
+	std::sort(gantries.begin(), gantries.end(),			// ordina i varchi, distanza crescente
+          [](const Gantry& a, const Gantry& b){				// usato anche in altre parti del progetto sotto consiglio del mio compagno Ettore
+              return a.getGantryDist() < b.getGantryDist();
+          });
+
+	std::sort(junctions.begin(), junctions.end(),   		// ordina gli svincoli, distanza crescente
+          [](const Junction& a, const Junction& b){
+              return a.getJunctionDist() < b.getJunctionDist();
+          });
+
 	isValid();
 }
 
@@ -49,7 +61,7 @@ void Highway::isValid() const{
 	double lastJunctionDist = junctions[junction_size-1].getJunctionDist();
 
 	if(lastGantryDist > lastJunctionDist){
-		throw std::runtime_error("Error");				// controlla che l'ultimo type (per distanza) sia uno svincolo quindi che ci sia uno svincolo dopo l'ultimo varco
+		throw std::runtime_error("Error");
 	}
 	
 	
@@ -74,4 +86,3 @@ void Highway::isValid() const{
 		}
 	}
 }
-
