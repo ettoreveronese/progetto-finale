@@ -63,26 +63,21 @@ void Highway::isValid() const{
 	if(lastGantryDist > lastJunctionDist){
 		throw std::runtime_error("Error");
 	}
-	
-	
-	if(gantry_size >= junction_size){
-		for(int i=0; i<junction_size; ++i){
-			for(int j=0; j<gantry_size; j++){	
-				double temp_dist = std::abs(gantries[j].getGantryDist() - junctions[i].getJunctionDist());    	// controlla che la distanza tra varco e svincolo sia almeno 1km
-				if(temp_dist < 1.0) {
-					throw std::runtime_error("Error");
-				}
-			}
-		}
-	} 
-	else if(junction_size > gantry_size){
-		for(int i=0; i<gantry_size; ++i){
-			for(int j=0; j<junction_size; j++){	
-				double temp_dist = std::abs(gantries[i].getGantryDist() - junctions[j].getJunctionDist());    	// controlla che la distanza tra varco e svincolo sia almeno 1km
-				if(temp_dist < 1.0) {
-					throw std::runtime_error("Error");
-				}
-			}
-		}
-	}
+
+	int v = 0; 		// indice varchi
+    int s = 0; 		// indice svincoli
+
+    while (v < gantries.size() && s < junctions.size()) {
+        	double dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());
+
+        	if (dist < 1.0) {
+            		throw std::runtime_error("Error");				// controlla che la distanza minima tra varco e svincolo sia 1km
+        	}
+
+       		if (gantries[v].getGantryDist() < junctions[s].getJunctionDist()) {
+            		++v;
+        	} else {
+            		++s;
+        	}
+    	}
 }
