@@ -18,6 +18,5 @@ public:
 	void loadHighwayData(const std::string& h_data);      // prende i dati da Highway.txt (nel file main)
 	const std::vector<Gantry>& getGantries() const;
 	const std::vector<Junction>& getJunctions() const;
-}
+};
 #endif
-
