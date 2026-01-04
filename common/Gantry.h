@@ -5,10 +5,10 @@
 #ifndef GANTRY_H
 class Gantry{
 private:
-	int id;				        // # del varco
-	double dist;				// distanza (in km)
+	double dist_gantry;				// distanza (in km)
+	int num_gantry;				    // # del varco
 public:
-	Gantry(const int& id, const double& dist);
+	Gantry(const int& num_gantry, const double& dist_gantry);
 	int getId() const;
 	double getDist() const;
 };
