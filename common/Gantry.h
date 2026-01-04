@@ -2,7 +2,7 @@
 // La classe rappresenta un varco
 
 #ifndef GANTRY_H
-#ifndef GANTRY_H
+#define GANTRY_H
 class Gantry{
 private:
 	double dist_gantry;				// distanza (in km)
