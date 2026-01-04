@@ -53,7 +53,7 @@ void Highway::isValid() const{
 	}
 	
 	
-	if(gantry_size > junction_size){
+	if(gantry_size >= junction_size){
 		for(int i=0; i<junction_size; ++i){
 			for(int j=0; j<gantry_size; j++){	
 				double temp_dist = std::abs(gantries[j].getGantryDist() - junctions[i].getJunctionDist());    	// controlla che la distanza tra varco e svincolo sia almeno 1km
@@ -74,3 +74,4 @@ void Highway::isValid() const{
 		}
 	}
 }
+
