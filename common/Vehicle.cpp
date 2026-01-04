@@ -33,9 +33,9 @@ std::string Vehicle::makePlate() const {
     std::uniform_int_distribution<> cDist('A', 'Z');
     std::uniform_int_distribution<> iDist('0', '9');
 
-    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 characters
+    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 capital letters
     for (int i=0; i<3; i++){ new_plate+=iDist(gen); }   // add 3 integers
-    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 characters
+    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 capital letters
 
     return new_plate;
 }
