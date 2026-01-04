@@ -30,8 +30,6 @@ void Highway::loadHighwayData(const std::string& data_h){        // da leggere n
 	}
 }
 
-// MANCA LA FUNZIONE isValid() !!!!!!!!!
-
-
-
-
+void Highway::isValid(){
+	
+}
