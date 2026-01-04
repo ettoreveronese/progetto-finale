@@ -4,9 +4,9 @@
 Gantry::Gantry(const int& gantry_id, const double& dist) : id(gantry_id), dist(dist) {}
 
 int Gantry::getId() const{
-	return id;
+	return id;                                   // # del varco
 }
 
 double Gantry::getDist() const{
-	return dist;
+	return dist;                                 // distanza in km dall'inizio
 }
