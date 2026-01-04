@@ -1,15 +1,15 @@
 // Autore : Paolo Gasparato
+// La classe rappresenta uno svincolo
+
 #ifndef JUNCTION_H
 #define JUNCTION_H
-	
 class Junction{
-private: 
-	int junction_id;			  // # dello svincolo
-	double dist;				  // distanza (in km)
+private:
+	double dist_junction;				// distanza (in km)
+	int num_junction;				    // # dello svincolo
 public:
-	Junction(const int& junction_id, const double& dist);
-	int getJunctionId() const;
-	double getDist() const;
+	Junction(const double& dist_junction, const int& num_junction);
+		double getJunctionDist() const;	
+		int getJunctionNum() const;
 };
 #endif
-
