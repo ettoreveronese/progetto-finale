@@ -5,8 +5,8 @@
 #ifndef GANTRY_H
 class Gantry{
 private:
-	int id;				        // # of the gantry
-	double dist;				// distance measured in km
+	int id;				        // # del varco
+	double dist;				// distanza (in km)
 public:
 	Gate(const int& gantry_id, const double& dist);
 	int getId() const;
