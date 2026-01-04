@@ -8,8 +8,8 @@ private:
 	double dist_gantry;				// distanza (in km)
 	int num_gantry;				    // # del varco
 public:
-	Gantry(const int& num_gantry, const double& dist_gantry);
-	int getId() const;
-	double getDist() const;
+	Gantry(const double& dist_gantry, const int& num_gantry);
+		double getDist() const;	
+		int getNum() const;
 };
 #endif
