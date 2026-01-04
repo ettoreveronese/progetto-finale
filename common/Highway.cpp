@@ -17,7 +17,7 @@ void Highway::loadHighwayData(const std::string& data_h){
 	double km;			               // <distanza in km>
 	char type;			              // <V|S per Varco o Svincolo>
 
-	while(data >> km >> type){
+	while(data >> km >> type){				// == while(data.hasNext()) ...
 		if(type=='V'){
 			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)
 		}
@@ -29,5 +29,6 @@ void Highway::loadHighwayData(const std::string& data_h){
 }
 
 // MANCA LA FUNZIONE isValid() !!!!!!!!!
+
 
 
