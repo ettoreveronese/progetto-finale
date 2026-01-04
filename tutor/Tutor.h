@@ -5,17 +5,19 @@
 
 #include "Passage.cpp"
 
-#include <iostream>
 #include <vector>
+#include <map>
 
 class Tutor {
 private: 
-    std::vector<Passage> passages;
+    std::vector<Passages> passages;     //
+    std::multimap<Passages> passed_vehicles;   // v 
+    double time;                        // measured in seconds
 
 public:
-    Tutor();
-    void setTime();     // ??
-    void getStats();    // ??
+    Tutor(std::string p_data_path);
+    std::string setTime();     // ??
+    std::string getStats() const;    // ??
     void reset();       // ??
 }
 

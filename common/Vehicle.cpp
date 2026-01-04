@@ -40,18 +40,18 @@ std::string Vehicle::makePlate() const {
     return new_plate;
 }
 
-bool Vehicle::isValidPlate(const std::string& plate) const {
+static bool Vehicle::isValidPlate(const std::string& plate) const {
     if (plate.size() != 7){ return false; }     // if size != 7 it can't be a number plate
     
     // check if the format is correct
     for (int i=0; i<2; i++){
-       if (!isCapitalLetter(plate.at(i))){ return false; } 
+       if (!isCapitalLetter(plate[i])){ return false; } 
     }
     for (int i=2; i<5; i++){
-        if (!isNumber(plate.at(i))){ return false; }
+        if (!isNumber(plate[i])){ return false; }
     }
     for (int i=5; i<7; i++){
-       if (!isCapitalLetter(plate.at(i))){ return false; } 
+       if (!isCapitalLetter(plate[i])){ return false; } 
     }
 
     return true;
