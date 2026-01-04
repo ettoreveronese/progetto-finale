@@ -10,12 +10,12 @@ class Passage {
 private:
     Gantry gantry;
     Vehicle vehicle;    
-    Double passage_time;
+    double passage_time;
 
 public:
     //Passage();
     Passage(Gantry g; Vehicle v; Double pt);
-    String getPassage() const;
+    std::string getPassage() const;
 };
 
 #endif

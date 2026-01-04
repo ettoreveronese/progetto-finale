@@ -5,20 +5,18 @@
 
 #include <string>
 #include <vector>
-#include "Gate.h"
+#include "Gantry.h"
 #include "Junction.h"
 
 class Highway{
 private:
-	std::vector<Gate> gates;
-	std::vector<Junction> junctions;
+	std::vector<Gantry> gantries;				// vettore per i varchi
+	std::vector<Junction> junctions;			// vettore per gli svincoli
 	
-	void isValid() const;			// check all the constraints (at least 2 junctions,#gate=#junction,...)
+	void isValid() const;			// controlla i vincoli (almeno 2 varchi, distanza minima di 1km,...)
 public:
-	void loadFromFile(const std::string& file);      // take the input from the .txt file (random)
-	const std::vector<Gate>& getGates() const;
-	const std::vector<Gate>& getGates() const;
-}
+	void loadHighwayData(const std::string& h_data);      // prende i dati da Highway.txt (nel file main)
+	const std::vector<Gantry>& getGantries() const;
+	const std::vector<Junction>& getJunctions() const;
+};
 #endif
-
-//DA FINIRE 

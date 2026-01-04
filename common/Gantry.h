@@ -2,14 +2,14 @@
 // La classe rappresenta un varco
 
 #ifndef GANTRY_H
-#ifndef GANTRY_H
+#define GANTRY_H
 class Gantry{
 private:
-	int id;				        // # of the gantry
-	double dist;				// distance measured in km
+	double dist_gantry;				// distanza (in km)
+	int num_gantry;				    // # del varco
 public:
-	Gate(const int& gantry_id, const double& dist);
-	int getId() const;
-	double getDist() const;
+	Gantry(const double& dist_gantry, const int& num_gantry);
+		double getGantryDist() const;	
+		int getGantryNum() const;
 };
 #endif

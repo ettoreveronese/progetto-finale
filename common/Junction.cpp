@@ -1,12 +1,12 @@
 // Autore : Paolo Gasparato
 #include "Junction.h"
 
-Junction::Junction(const int& junction_id, const double& dist) : junction_id(junction_id), dist(dist) {}
+Junction::Junction(const double& dist_junction, const int& num_junction) : dist_junction(dist_junction), num_junction(num_junction) {}
 
-int Junction::getId() const{
-	return junction_id;
+double Junction::getJunctionDist() const{
+	return dist_junction;                                 // fornisce la distanza in km dall'inizio
 }
 
-double Junction::getDist() const{
-	return dist;
+int Junction::getJunctionNum() const{
+	return num_junction;                                   // fornisce il # del varco
 }
