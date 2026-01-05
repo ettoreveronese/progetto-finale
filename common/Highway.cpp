@@ -68,17 +68,18 @@ void Highway::isValid() const{
     int s = 0; 		// indice svincoli
 
     while (v < gantries.size() && s < junctions.size()) {
-        	double dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+        	double abs_dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 
-        	if (dist < 1.0) {
+        	if (abs_dist < 1.0) {									// distanza assoluta per evitare errori
             		throw std::runtime_error("Error");				// controlla che la distanza minima tra varco e svincolo sia 1km
         	}														// (complessità temporale migliorata dopo aver ordinato i vettori)
 
-       		if (gantries[v].getGantryDist() < junctions[s].getJunctionDist()) {
+       		if (gantries[v].getGantryDist() < junctions[s].getJunctionDist()) {			// aumento del varco o svincolo di distanza minima tra i due in caso ci siano ripetizioni (ad es. 2 varchi di fila prima di uno svincolo)
             		++v;
         	} else {
             		++s;
         	}
     	}
 }
+
 
