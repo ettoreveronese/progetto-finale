@@ -1,12 +1,12 @@
 // Autore : Paolo Gasparato
 #include "Gantry.h"
 
-Gantry::Gantry(const double& dist_gantry, const int& num_gantry) : dist_gantry(dist_gantry), num_gantry(num_gantry) {}
+Gantry::Gantry(const double& gantry_dist, const int& gantry_id) : gantry_dist(gantry_dist), gantry_id(gantry_id) {}
 
-double Gantry::getGantryDist() const{
-	return dist_gantry;                                 // fornisce la distanza in km dall'inizio
+double Gantry::getDist() const{
+	return gantry_id;                                 // fornisce la distanza in km dall'inizio
 }
 
-int Gantry::getGantryNum() const{
-	return num_gantry;                                   // fornisce il # del varco
+int Gantry::getId() const{
+	return gantry_id;                                   // fornisce il # del varco
 }
