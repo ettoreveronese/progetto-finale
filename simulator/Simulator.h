@@ -3,32 +3,30 @@
 #include <iostream>
 #include <fstream>
 
-const int Num_vehicles = 10000;   //Numero di veicoli
+const int Num_vehicles = 10000;   
 
-const int V_min = 80;            //Range di velocità
+const int V_min = 80;            //Speed range
 const int V_max = 190;
 
-const int D_min = 5;             //Range durata degli intervalli
+const int D_min = 5;             //Interval duration range
 const int D_max = 15;
 
-const double Range_min = 0.5;    //Range di tempo tra le partenze 
+const double Range_min = 0.5;    //Time range between departures
 const double Range_max = 10.0;
 
-const int Max_int = 50;          //Numero max di intervalli
+const int Max_int = 50;          //Max number of intervals
 
-const int Dim_plate = 7;             //Lunghezza targa
-
-struct Interval{                //intervallo a velocità costante
+struct Interval{                //Constant speed interval
   int speed;
   int duration;
 };
 
-struct Profile{                   //profilo velocità
+struct Profile{                   //Speed profile
   Interval intervals[Max_int];
   int Num_int;
 };
 
-struct Vehicle{                    //creazione veicolo
+struct Vehicle{                    //Vehicle creation
   char plate[Dim_plate];
   int Sv_in;
   int Sv_out;
@@ -36,22 +34,24 @@ struct Vehicle{                    //creazione veicolo
   Profile profile;
 };
 
-int Int_random(int min, int max);               //Genera un intero casuale
-double Double_random(double min, double max);   //Genera un double casuale
+int Int_random(int min, int max);               //Generates a random integer
 
-void Gen_plate(char plate[]);                   //Genera targa
+double Double_random(double min, double max);   //Generates a random double
 
-Interval Gen_int();                           //Genera intervallo di velocià casuale
+Interval Gen_int();                           //Generate random speed range
 
-void Gen_profile(Profile &p, double dist);      //Genera profilo di velocità per una certa distanza
+void Gen_profile(Profile &p, double dist);      //Generate speed profile for a certain distance
 
-double Dist(int speed, int duration);          //Calcola distanza percorsa in un intervallo
+double Dist(int speed, int duration);          //Calculate distance traveled in an interval
 
-Vehicle Gen_v(double dist, int numSv, double t_start);  //Genera veicolo
+Vehicle Gen_v(double dist, int numSv, double t_start);  //Generation vehicle
 
-void V_file(const Vehicle &v, ofstream &file);  //Scrive veicolo su file
+void Run(const Vehicle &v, ofstream &file);  //Write vehicle to file
+
+void Passage(const Vehicle &v, ofstream &file, double distTot); //Writes passages to file
 
 #endif
+
 
 
 
