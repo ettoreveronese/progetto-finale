@@ -1,6 +1,7 @@
 // Autore:
 
 #include "Passage.h"
+#include "Vehicle.h"
 
 //Passage::Passage(){}
 
