@@ -1,6 +1,6 @@
 #ifndef SIMULATOR.h
 #define SIMULATOR.h
-#include <ioistream>
+#include <iostream>
 #include <fstream>
 
 const int num_vehicles = 10000;   //Number of vehicles
@@ -16,7 +16,7 @@ const double range_max = 10.0;
 
 const int max_int = 50;          //Max number of intervals
 
-const dim_plate = 7;             //Plate length
+const int dim_plate = 7;             //Plate length
                                  
 struct Interval{                //Constant speed interval
   int speed;
@@ -28,7 +28,7 @@ struct Profile{                   //Speed profile
   int num_range;
 };
                                   
-struct Car{                    //Vehicle creation
+struct Vehicle{                    //Vehicle creation
   char plate[dim_plate];
   int junction_in;
   int junction_out;
@@ -38,7 +38,7 @@ struct Car{                    //Vehicle creation
 
 int int_random(int min, int max);               //Generate a random integer
 
-Double double_random(double min, double max);   //Generate a random double
+double double_random(double min, double max);   //Generate a random double
 
 Interval gen_int();                           //Generate random speed range
 
@@ -50,9 +50,10 @@ Vehicle gen_v(double dist, int num_junction, double t_start);  //Generate vehicl
 
 void run(const Vehicle &v, ofstream &file);       //Write vehicle to file
 
-void Passage(const Vehicle &v, ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
+void passage(const Vehicle &v, ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
