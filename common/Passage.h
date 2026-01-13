@@ -15,7 +15,7 @@ private:
 public:
     //Passage();
     Passage(Gantry g; Vehicle v; Double pt);
-    std::string getPassage() const;
+    std::string get_passage() const;
 };
 
 #endif
