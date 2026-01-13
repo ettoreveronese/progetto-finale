@@ -13,11 +13,11 @@ public:
     Vehicle();                                  // generate a new plate if none is given
     explicit Vehicle(const std::string& p);
     
-    const std::string& getPlate() const;        // returns the plate of the current vehicle
-    std::string makePlate() const;              // returns a newly generated plate
+    const std::string& get_plate() const;        // returns the plate of the current vehicle
+    std::string make_plate() const;              // returns a newly generated plate
     
     // returns true if the given plate is valid
-    static bool isValidPlate(const std::string& plate) const;    
+    static bool is_valid_plate(const std::string& plate) const;    
 };
 
 
