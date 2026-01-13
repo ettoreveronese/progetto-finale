@@ -11,5 +11,5 @@ Passage::Passage(Gantry g; Vehicle v; double pt){
 }
 
 std::string Print::Passage() const {
-    return gantry.getId() + " " + vehicle.getPlate() + " " + passage_time;
+    return gantry.get_gantry_num() + " " + vehicle.get_plate() + " " + passage_time;
 }
