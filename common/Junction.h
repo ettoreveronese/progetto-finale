@@ -9,9 +9,10 @@ private:
 	int junction_num;				    // # dello svincolo
 public:
 	Junction(const double& junction_dist, const int& junction_num);
-		double get_junction_dist() const;	
-		int get_junction_num() const;
+		double get_dist() const;	
+		int get_num() const;
 };
 #endif
+
 
 
