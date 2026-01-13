@@ -9,7 +9,7 @@ private:
 	int gantry_num;				    // # del varco
 public:
 	Gantry(const double& gantry_dist, const int& gantry_num);
-		double get_dist() const;	
-		int get_num() const;
+		double get_gantry_dist() const;	
+		int get_gantry_num() const;
 };
 #endif
