@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcommon.a CMakeFiles/common.dir/Gantry.cpp.o CMakeFiles/common.dir/Highway.cpp.o CMakeFiles/common.dir/Junction.cpp.o CMakeFiles/common.dir/Passage.cpp.o CMakeFiles/common.dir/Vehicle.cpp.o
+/usr/bin/ranlib libcommon.a

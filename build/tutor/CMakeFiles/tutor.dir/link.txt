@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/tutor.dir/link.d CMakeFiles/tutor.dir/main.cpp.o CMakeFiles/tutor.dir/Tutor.cpp.o -o tutor  ../common/libcommon.a

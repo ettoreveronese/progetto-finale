@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/cmake_install.cmake",
+		"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/common/cmake_install.cmake",
+		"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/simulator/cmake_install.cmake",
+		"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/tutor/cmake_install.cmake",
+		"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
