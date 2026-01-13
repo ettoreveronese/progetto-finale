@@ -61,7 +61,7 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
     }
 }
 
-Vehicle gen_v(double dist, int numSv, double t_start){  //Vehicle generation
+Vehicle gen_v(double dist, int num_junction, double t_start){  //Vehicle generation
 
 	Vehicle v;
 	
@@ -101,4 +101,5 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
 
     file << endl;
 }
+
 
