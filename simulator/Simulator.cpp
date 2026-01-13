@@ -16,7 +16,7 @@ int int_random(int min, int max){
 	return i;
 }
 
-int double_random(double min, double max){         //Random double number generation
+double double_random(double min, double max){         //Random double number generation
 
 	double j= min+(max-min) * ((double) rand() / RAND_MAX);
 	return j;
@@ -24,7 +24,7 @@ int double_random(double min, double max){         //Random double number genera
 
 double dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
 
-	double d= speed*(duration/60);
+	double d= speed*(duration/60.0);
 	return d;
 
 }
@@ -101,6 +101,7 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
 
     file << endl;
 }
+
 
 
 
