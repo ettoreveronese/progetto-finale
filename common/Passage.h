@@ -1,4 +1,4 @@
-// Autore:
+// autore: ettore veronese
 
 #ifndef PASSAGE_H
 #define PASSAGE_H
@@ -8,14 +8,20 @@
 
 class Passage {
 private:
-    Gantry gantry;
-    Vehicle vehicle;    
-    double passage_time;
-
+    
 public:
+    const Gantry gantry;
+    const Vehicle vehicle;    
+    const double timestamp;
+    
     //Passage();
-    Passage(Gantry g; Vehicle v; Double pt);
-    std::string getPassage() const;
+    Passage(const Gantry& g; const Vehicle& v; double t);
+    
+    const Gantry& get_gantry() const;
+    const Vehicle& get_vehicle() const;
+    double get_timestamp() const;
+    
+    std::string get_passage() const;
 };
 
 #endif

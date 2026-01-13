@@ -8,14 +8,14 @@
 #include <iostream>
 #include <fstream> // ifstream??
 #include <stdexcept>
-#include <map>
+#include <algorithm>
 
 // given the passages vector as reference and the path of passages.txt 
 // it stores the data in passages.txt to the passages vector, sorted by time
-static void parsePassagesData(std::vector<Passages>& passages, const string p_data_path){
+void Tutor::parsePassagesData(const std::string filename){
     // open file     
-    std::ifstream p_file(p_data_path);
-    if (!p_file.is_open()){
+    std::ifstream file(filename);
+    if (!file.is_open()){
         throw "invalid argument: couldn't read passages.txt";
     }
     
@@ -24,7 +24,7 @@ static void parsePassagesData(std::vector<Passages>& passages, const string p_da
     double time;
     
     // save to passages vector
-    while (p_file >> gantry_id >> plate >> time){
+    while (file >> gantry_id >> plate >> time){
         Gantry gantry(gantry_id);
         Vehicle vehicle(plate);
         Passage p(gantry, vehicle, time);
@@ -33,80 +33,126 @@ static void parsePassagesData(std::vector<Passages>& passages, const string p_da
     }
     
     // sort the passages by time
-    std::sort( passags.begin(), passages.end(), 
+    std::sort( passages.begin(), passages.end(), 
         [](const Passage& a, const Passage& b){ 
-            return a.time < b.time;
+            return a.timestamp < b.timestamp;
         });
-
 }
 
-// TODO_ 
-static std::vector<Report> computeViolations(){ // unfinished
-    std::vector<Report> reports; 
 
-    for (const auto& [plate, v_passage]: interval_passages){
+Tutor::Tutor(const std::string& filename) {
+    interval_index = 0;
+    time_interval = 0.0;
+    
+    stats.sanctioned = 0;
+    stats.speed_sum = 0.0;
+    stats.time_interval = 0.0;
+    
+    parsePassagesData(filename);
+}
+
+const std::vector<Report>& Tutor::set_time(const double time_increment){
+    if (time_increment<=0){   // can only add time to the interval, reset to roll back
+        throw "invalid argument";
+    }   
+    
+    // update time interval
+    time_interval += time_increment;
+
+    // clear the passaged from the previous interval
+    interval_passages.clear(); 
+    
+    // cicle through passages within the interval
+    int& i = interval_index; 
+    while (p.get_timestamp() <= time_interval && i < passages.size()){
+        const Passage& p = passages[i];
+  
+        // save passages below the gantry to stats
+        GantryStats gantry_stats(p.get_gantry(), 1, 0); 
+        if (!stats.gantries.insert(gantry_stats.gantry.getId(), gantry_stats).second){
+            stats.gantries[gantry_stats.gantry.getId()].passage_count++;
+        }
+
+        // add passages within the interval to interval_passages
+        interval_passages[p.plate].push_back(p);
+        
+         i++;
+    }
+    
+    // clear reports
+    reports.clear();
+
+    // compute the violations
+    for (const auto& [plate, v_passage]: interval_passages){ 
         if (v_passage.size() <= 1){
             continue;
         }
-        
-        Passages first = v_passages[0];
 
+        // iterate through passages under gantries by the same vehicle
+        const Passages& first = v_passages[0]; 
         for (int i=1; i<v_passages.size(); i++){
-            second = v_passages[i];
+            const Passages& second = v_passages[i];
             
-            double time_g2g = second.passage_time - first.passage_time();
+            double time_g2g = second.get_timestamp() - first.get_timestamp();
             double dist = second.gantry.getDist() - first.gantry.getDist();
             double avg_speed = (dist / time_g2g) * 3600;  // x3600 converts to km/h 
             
-            if (avg_speed > SPEED_LIMIT){   // if speeding create a report
-                Report report(first.vehicle, first.gantry, second.gantry, avg_speed);
+            // if speeding create a report 
+            if (avg_speed > SPEED_LIMIT){   
+                Report report(first, second, avg_speed);
                 reports.push_back(report);
+
+                stats.sanctioned++;
+                stats.speed_sum += avg_speed;   // increment sum of all speeds
             }
 
             first = second;
         }
     }
-    return reports
+
+    return reports;
 }
 
-
-Tutor::Tutor(const std::string p_data_path) {
-    interval_index = 0;
-    time_interval = 0;
-    parsePassagesData(passages, p_data_path);
-}
-
-std::string Tutor::setTime(const double added_time){    // unfinished
-    if (added_time<=0){   // can only add time to the interval, reset to roll back
-        throw "invalid argument";
-    }   
-    
-    // update time interval
-    time_interval += added_time;
-
-    // clear the passaged from the previous interval
-    interval_passages.clear;
-    
-    // add passages within the interval to interval_passages
-    while (interval_index<passages.size()){
-        if (passages[i].passage_time <= time_interval){
-            if (!interval_passages.insert(passages[i].plate, passages[i]).second){
-                interval_passages[passages[i].plate].push_back(passages[i]);
-            }
-        } else {
-            break;
-        }
-        interval_index++;
-    }
-
-    std::string infractions;
-    return infractions;
-}
-
-std::string Tutor::getStats() const {
-    
+const Stats& Tutor::get_stats() const { 
+    return stats;
 }
 
 void Tutor::reset() {
+    interval_passages.clear();
+    reports.clear();
+
+    stats.gantries.clear();
+    stats.sanctioned = 0;
+    stats.speed_sum = 0.0; // ??
+    stats.time_interval = 0.0;
+
+    interval_index=0;
+    time_interval=0.0;
+}
+
+void Tutor::print_reports() const {
+    std::cout << "\n\nreports:\n";
     
+    for (int i=0; i<reports.size(); i++){
+        const Report& r = reports[i];
+        
+        std::cout << "license plate: " << r.first_passage.get_vehicle().get_plate() << "\n";
+        std::cout << "section: " << r.first_passage.get_gantry().getId() << " - " << r.second_passage.get_gantry().getId() << "\n";
+        std::cout << "time of passage: " << r.first_passage.get_timestamp() << " - " << r.second_passage.get_timestamp() << "\n";
+        std::cout << "average speed: " << r.avg_speed << "\n";
+    }
+}
+
+void Tutor::print_stats() const {
+    std::cout << "\n\nstats: (" << timestamp/60 << " minutes\n)";
+    
+    for (int i=0; i<gantries.size(); i++){
+        const Gantry& g = gantries[i];
+        
+        std::cout << "gantry id: " << g.gantry.getId() << "\n";
+        std::cout << "number of passages: " << g.passage_count << "\n";
+    }
+
+    std::cout << "average speed of sanctioned vehicles: " << stats.average_speed() << "\n";
+    std::cout << "n of sanctioned vehicles: " << stats.sanctioned << "\n";
 }
