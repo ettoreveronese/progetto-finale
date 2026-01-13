@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/simulator.dir/link.d CMakeFiles/simulator.dir/main.cpp.o CMakeFiles/simulator.dir/Simulator.cpp.o -o simulator  ../common/libcommon.a
