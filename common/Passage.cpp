@@ -1,6 +1,7 @@
 // autore: ettore veronese
 
 #include "Passage.h"
+#include "Vehicle.h"
 
 //Passage::Passage(){}
 
@@ -10,6 +11,6 @@ const Gantry& Passage::get_gantry(){ return gantry; }
 const Vehicle& Passage::get_vehicle(){ return vehicle; }
 double get_timestamp(){ return timestamp; }
 
-std::string Passage::Passage() const {
-    return gantry.getId() + " " + vehicle.get_plate() + " " + get_timestamp();
+std::string Print::Passage() const {
+    return gantry.get_id() + " " + vehicle.get_plate() + " " + passage_time;
 }

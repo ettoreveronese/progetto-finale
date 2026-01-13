@@ -1,57 +1,59 @@
-#ifndef SIMULATOR_H
-#define SIMULATOR_H
+#ifndef SIMULATOR.h
+#define SIMULATOR.h
 #include <iostream>
 #include <fstream>
 
-const int Num_vehicles = 10000;   //Numero di veicoli
+const int num_vehicles = 10000;   //Number of vehicles
 
-const int V_min = 80;            //Range di velocità
-const int V_max = 190;
+const int v_min = 80;            //Speed ​​range
+const int v_max = 190;
 
-const int D_min = 5;             //Range durata degli intervalli
-const int D_max = 15;
+const int d_min = 5;             //Interval duration range
+const int d_max = 15;
 
-const double Range_min = 0.5;    //Range di tempo tra le partenze 
-const double Range_max = 10.0;
+const double range_min = 0.5;    //Time range between departures
+const double range_max = 10.0;
 
-const int Max_int = 50;          //Numero max di intervalli
+const int max_int = 50;          //Max number of intervals
 
-const int Dim_plate = 7;             //Lunghezza targa
-
-struct Interval{                //intervallo a velocità costante
+const int dim_plate = 7;             //Plate length
+                                 
+struct Interval{                //Constant speed interval
   int speed;
   int duration;
 };
 
-struct Profile{                   //profilo velocità
-  Interval intervals[Max_int];
-  int Num_int;
+struct Profile{                   //Speed profile
+  Interval intervals[max_int];
+  int num_range;
 };
-
-struct Vehicle{                    //creazione veicolo
-  char plate[Dim_plate];
-  int Sv_in;
-  int Sv_out;
-  double T_in;
+                                  
+struct Vehicle{                    //Vehicle creation
+  char plate[dim_plate];
+  int junction_in;
+  int junction_out;
+  double time_in;
   Profile profile;
 };
 
-int Int_random(int min, int max);               //Genera un intero casuale
-double Double_random(double min, double max);   //Genera un double casuale
+int int_random(int min, int max);               //Generate a random integer
 
-void Gen_plate(char plate[]);                   //Genera targa
+double double_random(double min, double max);   //Generate a random double
 
-Interval Gen_int();                           //Genera intervallo di velocià casuale
+Interval gen_int();                           //Generate random speed range
 
-void Gen_profile(Profile &p, double dist);      //Genera profilo di velocità per una certa distanza
+void gen_profile(profile &p, double dist);      //Generate speed profile for a certain distance
 
-double Dist(int speed, int duration);          //Calcola distanza percorsa in un intervallo
+double dist(int speed, int duration);          //Calculate distance traveled in an interval
 
-Vehicle Gen_v(double dist, int numSv, double t_start);  //Genera veicolo
+Vehicle gen_v(double dist, int num_junction, double t_start);  //Generate vehicle
 
-void V_file(const Vehicle &v, ofstream &file);  //Scrive veicolo su file
+void run(const Vehicle &v, ofstream &file);       //Write vehicle to file
+
+void passage(const Vehicle &v, ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 

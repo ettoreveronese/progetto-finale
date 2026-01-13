@@ -1,44 +1,107 @@
 #include "Simulator.h"
+#include "Vehicle.h"
+
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
+#include <iomanip>
+
 
 using namespace std;
 
 
-int Int_random(int min, int max){
+int int_random(int min, int max){
 
-	int i= min+rand() % (max-min+1);              //generazione casuale numero int
+	int i= min+rand() % (max-min+1);              //Random int number generation
 	return i;
 }
 
-int Double_random(double min, double max){         //generazione casuale numero double
+double double_random(double min, double max){         //Random double number generation
 
 	double j= min+(max-min) * ((double) rand() / RAND_MAX);
 	return j;
 }
 
-void Gen_plate(char plate[]) {        //generazione targa con codice ASCII
+double dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
 
-	plate[0]= 'A' + rand()%26;
-	plate[1]= 'A' + rand()%26;
-	plate[2]= '0' + rand()%10;
-	plate[3]= '0' + rand()%10;
-	plate[4]= '0' + rand()%10;
-	plate[5]= 'A' + rand()%26;
-	plate[6]= 'A' + rand()%26;
-}
-
-double Dist(int speed, int duration){ //calcolo distanza con conversione di minuti in ore
-
-	double d= speed*(duration/60);
+	double d= speed*(duration/60.0);
 	return d;
 
 }
 
-Interval Gen_int(){                   //generazione casuale intervallo di velocità
+Interval gen_int(){                   //random speed range generation
 
 	Interval v;
-	v.speed=Int_random(V_min, V_max);
-	v.duration=Int_random(D_min, D_max);
+	v.speed=int_random(v_min, v_max);
+	v.duration=int_random(d_min, d_max);
 	return v;
 }
+
+void gen_profile(Profile &p, double dist){   //Speed profile generation
+
+	double dist_traveled = 0.0;
+	p.num_range = 0;
+    
+    while(dist_traveled < dist && p.num_range < max_int){  //Check the distance covered and the number of intervals allowed
+    Interval h = gen_int();
+    double d = dist(h.speed, h.duration);
+
+    if(dist_traveled + d > dist){ 
+
+    	d = dist-dist_traveled;                        //Reduces the distance to the missing value
+    	h.duration = (int)((d/h.speed) * 60.0);
+
+    }
+
+    p.intervals[p.num_range] = h;     //Range entered in the profile
+    p.num_range++;
+
+    dist_traveled += d;
+
+    }
+}
+
+Vehicle gen_v(double dist, int num_junction, double t_start){  //Vehicle generation
+
+	Vehicle v;
+	
+	v.makePlate();
+ 
+	v.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
+	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
+
+	v.time_in = t_start;
+
+	gen_profile(v.profile, dist);
+
+	return v;
+
+
+}
+
+void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
+
+	file << "<" << v.plate << "> "
+	     << "<" << v.junction_in << "> "
+	     << "<" << v.junction_out << "> "
+	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
+
+
+	for(int i=0; i < v.profile.num_range; i++){
+
+		file << "<"
+	       << v.profile.intervals[i].speed << " "
+			 << v.profile.intervals[i].duration << ">";
+
+
+	    if(i < v.profile.num_range - 1)
+	    	file << ",";
+    
+    }
+
+    file << endl;
+}
+
+
+
+

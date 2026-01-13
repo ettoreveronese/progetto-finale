@@ -5,11 +5,15 @@
 #define JUNCTION_H
 class Junction{
 private:
-	double dist_junction;				// distanza (in km)
-	int num_junction;				    // # dello svincolo
+	double junction_dist;				// distanza (in km)
+	int junction_id;				    // # dello svincolo
 public:
-	Junction(const double& dist_junction, const int& num_junction);
-		double getJunctionDist() const;	
-		int getJunctionNum() const;
+	Junction(const double& junction_dist, const int& junction_id);
+		double get_dist() const;	
+		int get_id() const;
 };
 #endif
+
+
+
+

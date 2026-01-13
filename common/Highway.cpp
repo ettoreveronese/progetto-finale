@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "Highway.h"
 
-void Highway::loadHighwayData(const std::string& data_h){        // da leggere nel main
+void Highway::load_highway_data(const std::string& data_h){        // da leggere nel main
 	
 	std::ifstream data(data_h);
 
@@ -37,18 +37,18 @@ void Highway::loadHighwayData(const std::string& data_h){        // da leggere n
 
 	std::sort(gantries.begin(), gantries.end(),			// ordina i varchi, distanza crescente
           [](const Gantry& a, const Gantry& b){				// usato anche in altre parti del progetto sotto consiglio del mio compagno Ettore, molto utile
-              return a.getGantryDist() < b.getGantryDist();
+              return a.get_dist() < b.get_dist();
           });
 
 	std::sort(junctions.begin(), junctions.end(),   		// ordina gli svincoli, distanza crescente
           [](const Junction& a, const Junction& b){
-              return a.getJunctionDist() < b.getJunctionDist();
+              return a.get_dist() < b.get_dist();
           });
 
-	isValid();
+	is_valid();
 }
 
-void Highway::isValid() const{
+void Highway::is_valid() const{
 
 	if(gantries.size()<2){
 		throw std::runtime_error("Error"); 		// devono essere presenti almeno 2 varchi
@@ -57,10 +57,10 @@ void Highway::isValid() const{
 	int num_gantry = gantries.size();
 	int num_junctions = junctions.size();
 
-	double lastGantryDist = gantries[num_gantry - 1].getGantryDist();
-	double lastJunctionDist = junctions[num_junction- 1].getJunctionDist();
+	double last_gantry_dist = gantries[id_gantry - 1].get_dist();
+	double last_junction_dist = junctions[id_junction- 1].get_dist();
 
-	if(lastGantryDist > lastJunctionDist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
 	}													
 
@@ -68,18 +68,20 @@ void Highway::isValid() const{
     int s = 0; 		// indice svincoli
 
     while (v < gantries.size() && s < junctions.size()) {
-        	double abs_dist = std::abs(gantries[v].getGantryDist() - junctions[s].getJunctionDist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+        	double abs_dist = std::abs(gantries[v].get_dist() - junctions[s].get_dist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 
         	if (abs_dist < 1.0) {									// distanza assoluta per evitare errori
             		throw std::runtime_error("Error");				// controlla che la distanza minima tra varco e svincolo sia 1km
         	}														// (complessità temporale migliorata dopo aver ordinato i vettori)
 
-       		if (gantries[v].getGantryDist() < junctions[s].getJunctionDist()) {			// aumento del varco o svincolo di distanza minima tra i due in caso ci siano ripetizioni (ad es. 2 varchi di fila prima di uno svincolo)
+       		if (gantries[v].get_dist() < junctions[s].get_dist()) {			// aumento del varco o svincolo di distanza minima tra i due in caso ci siano ripetizioni (ad es. 2 varchi di fila prima di uno svincolo)
             		++v;
         	} else {
             		++s;
         	}
     	}
 }
+
+
 
 
