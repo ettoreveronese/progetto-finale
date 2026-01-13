@@ -9,21 +9,21 @@
 static bool isCapitalLetter(char c){ return c>='A' && c<='Z'; }
 static bool isNumber(char c){ return c>='0' && c<='9'; }
 
-Vehicle::Vehicle(){ plate = makePlate(); }
+Vehicle::Vehicle(){ plate = make_plate(); }
 
 Vehicle::Vehicle(const std::string& p){
-    if (isValidPlate(p)){   // if given plate not valid throw an error
+    if (is_valid_plate(p)){   // if given plate not valid throw an error
         plate = p;
     } else {
         throw std::invalid_argument("Invalid plate");
     }
 } 
 
-const std::string& Vehicle::getPlate() const {
+const std::string& Vehicle::get_plate() const {
     return plate;
 }
 
-std::string Vehicle::makePlate() const {
+std::string Vehicle::make_plate() const {
     std::string new_plate;
     
     std::random_device rd;
@@ -40,7 +40,7 @@ std::string Vehicle::makePlate() const {
     return new_plate;
 }
 
-static bool Vehicle::isValidPlate(const std::string& plate) const {
+static bool Vehicle::is_valid_plate(const std::string& plate) const {
     if (plate.size() != 7){ return false; }     // if size != 7 it can't be a number plate
     
     // check if the format is correct
