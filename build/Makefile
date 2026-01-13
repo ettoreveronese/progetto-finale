@@ -130,19 +130,6 @@ common/fast:
 .PHONY : common/fast
 
 #=============================================================================
-# Target rules for targets named simulator
-
-# Build rule for target.
-simulator: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simulator
-.PHONY : simulator
-
-# fast build rule for target.
-simulator/fast:
-	$(MAKE) $(MAKESILENT) -f simulator/CMakeFiles/simulator.dir/build.make simulator/CMakeFiles/simulator.dir/build
-.PHONY : simulator/fast
-
-#=============================================================================
 # Target rules for targets named tutor
 
 # Build rule for target.
@@ -164,7 +151,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... common"
-	@echo "... simulator"
 	@echo "... tutor"
 .PHONY : help
 

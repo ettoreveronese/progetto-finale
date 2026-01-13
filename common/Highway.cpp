@@ -57,8 +57,8 @@ void Highway::is_valid() const{
 	int num_gantry = gantries.size();
 	int num_junctions = junctions.size();
 
-	double last_gantry_dist = gantries[id_gantry - 1].get_dist();
-	double last_junction_dist = junctions[id_junction- 1].get_dist();
+	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
+	double last_junction_dist = junctions[num_junctions - 1].get_dist();
 
 	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo

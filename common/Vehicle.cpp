@@ -7,23 +7,17 @@
 #include <cctype>
 
 static bool is_capital(char c){ return c>='A' && c<='Z'; }
-static bool is_bumber(char c){ return c>='0' && c<='9'; }
+static bool is_number(char c){ return c>='0' && c<='9'; }
 
-Vehicle::Vehicle(){ plate = make_plate(); }
+Vehicle::Vehicle() : plate(make_plate()) {}
 
-Vehicle::Vehicle(const std::string& p){
-    if (is_valid_plate(p)){   // if given plate not valid throw an error
-        plate = p;
-    } else {
-        throw std::invalid_argument("Invalid plate");
-    }
-} 
+Vehicle::Vehicle(const std::string& p) : plate(is_valid_plate(p) ? p : throw std::invalid_argument("Invalid plate")) {} 
 
 const std::string& Vehicle::get_plate() const {
     return plate;
 }
 
-std::string Vehicle::make_plate() const {
+std::string Vehicle::make_plate() {
     std::string new_plate;
     
     std::random_device rd;
@@ -40,7 +34,7 @@ std::string Vehicle::make_plate() const {
     return new_plate;
 }
 
-static bool Vehicle::is_valid_plate(const std::string& plate) const {
+bool Vehicle::is_valid_plate(const std::string& plate){
     if (plate.size() != 7){ return false; }     // if size != 7 it can't be a number plate
     
     // check if the format is correct

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor -I"/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/&{CMAKE_CURRENT_SOURCE_DIR}"
+CXX_INCLUDES = -I/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor -I/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common
 
 CXX_FLAGS = -std=gnu++11
 

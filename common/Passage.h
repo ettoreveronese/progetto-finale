@@ -15,7 +15,7 @@ public:
     const double timestamp;
     
     //Passage();
-    Passage(const Gantry& g; const Vehicle& v; double t);
+    Passage(const Gantry& g, const Vehicle& v, const double t);
     
     const Gantry& get_gantry() const;
     const Vehicle& get_vehicle() const;

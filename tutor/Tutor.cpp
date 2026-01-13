@@ -4,15 +4,43 @@
 #include "Gantry.h"
 #include "Vehicle.h"
 #include "Passage.h"
+#include "Highway.h"
 
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
 #include <algorithm>
 
+void Tutor::parse_highway_data(const std::string& filename){
+    std::ifstream file(filename);
+    if (!file.is_open()){
+        throw "invalid argument: couldn't read passages.txt";
+    }
+    
+    double dist;
+    char type;
+    std::vector<double> sorted_distances;
+
+    while (file >> dist >> type){
+        if (type == "V"){
+           gantries_dist.push(dist);
+        } else if (type == "S"){
+            continue;
+        } else {
+            throw "invalid argument: couldn't correctly parse highway.txt "
+        }
+    }
+
+    std::sort(gantries_dist.begin(), gantries_dist.end());
+
+    for (int i=0; i<sorted_distances.size; i++){ 
+        gantries.push_back(Gantry(sorted_distances[i], i));
+    }
+}
+
 // given the passages vector as reference and the path of passages.txt 
 // it stores the data in passages.txt to the passages vector, sorted by time
-void Tutor::parsePassagesData(const std::string filename){
+void Tutor::parse_passages_data(const std::string& filename){
     // open file     
     std::ifstream file(filename);
     if (!file.is_open()){
@@ -25,7 +53,7 @@ void Tutor::parsePassagesData(const std::string filename){
     
     // save to passages vector
     while (file >> gantry_id >> plate >> time){
-        Gantry gantry(gantry_id);
+        Gantry gantry(gantry_id, gantry.at(i).get_dist());
         Vehicle vehicle(plate);
         Passage p(gantry, vehicle, time);
         
@@ -35,15 +63,15 @@ void Tutor::parsePassagesData(const std::string filename){
     // sort the passages by time
     std::sort( passages.begin(), passages.end(), 
         [](const Passage& a, const Passage& b){ 
-            return a.timestamp < b.timestamp;
+            return a.get_timestamp() < b.get_timestamp();
         });
 }
 
 
 Tutor::Tutor(const std::string& filename) {
     interval_index = 0;
-    time_interval = 0.0;
-    
+
+    stats.time_interval = 0.0;
     stats.sanctioned = 0;
     stats.speed_sum = 0.0;
     stats.time_interval = 0.0;
@@ -113,7 +141,7 @@ const std::vector<Report>& Tutor::set_time(const double time_increment){
     return reports;
 }
 
-const Stats& Tutor::get_stats() const { 
+const Tutor::Stats& Tutor::get_stats() const { 
     return stats;
 }
 

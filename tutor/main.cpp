@@ -50,7 +50,7 @@ int main() {
         std::cout << "reset        resetta compleatamente il sistema\n";
         std::cout << "stats        stampa le statistiche\n";
 
-        std::istringstreastream iss(line);
+        std::istringstream iss(line);
         std::string command;
         
         iss >> command;

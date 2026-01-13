@@ -1,5 +1,5 @@
-#ifndef SIMULATOR.h
-#define SIMULATOR.h
+#ifndef SIMULATOR_H
+#define SIMULATOR_H
 #include <iostream>
 #include <fstream>
 

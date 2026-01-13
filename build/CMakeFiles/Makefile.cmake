@@ -12,7 +12,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/4.2.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.2.1/CMakeSystem.cmake"
   "/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/CMakeLists.txt"
-  "/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/simulator/CMakeLists.txt"
   "/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tests/CMakeLists.txt"
   "/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor/CMakeLists.txt"
   "/usr/share/cmake/Modules/CMakeCInformation.cmake"
@@ -55,7 +54,6 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "common/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "simulator/CMakeFiles/CMakeDirectoryInformation.cmake"
   "tutor/CMakeFiles/CMakeDirectoryInformation.cmake"
   "tests/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
@@ -63,6 +61,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "common/CMakeFiles/common.dir/DependInfo.cmake"
-  "simulator/CMakeFiles/simulator.dir/DependInfo.cmake"
   "tutor/CMakeFiles/tutor.dir/DependInfo.cmake"
   )

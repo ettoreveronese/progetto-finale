@@ -45,7 +45,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/common/cmake_install.cmake")
-  include("/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/simulator/cmake_install.cmake")
   include("/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/tutor/cmake_install.cmake")
   include("/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/build/tests/cmake_install.cmake")
 
