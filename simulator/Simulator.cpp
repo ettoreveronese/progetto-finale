@@ -10,94 +10,95 @@
 using namespace std;
 
 
-int Int_random(int min, int max){
+int int_random(int min, int max){
 
 	int i= min+rand() % (max-min+1);              //Random int number generation
 	return i;
 }
 
-int Double_random(double min, double max){         //Random double number generation
+int double_random(double min, double max){         //Random double number generation
 
 	double j= min+(max-min) * ((double) rand() / RAND_MAX);
 	return j;
 }
 
-double Dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
+double dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
 
 	double d= speed*(duration/60);
 	return d;
 
 }
 
-Interval Gen_int(){                   //random speed range generation
+Interval gen_int(){                   //random speed range generation
 
 	Interval v;
-	v.speed=Int_random(V_min, V_max);
-	v.duration=Int_random(D_min, D_max);
+	v.speed=int_random(v_min, v_max);
+	v.duration=int_random(d_min, d_max);
 	return v;
 }
 
-void Gen_profile(Profile &p, double dist){   //Speed profile generation
+void gen_profile(Profile &p, double dist){   //Speed profile generation
 
-	double distTraveled = 0.0;
-	p.num_int = 0;
+	double dist_traveled = 0.0;
+	p.num_range = 0;
     
-    while(distTraveled < dist && p.num_int < Max_int){  //Check the distance covered and the number of intervals allowed
-    Interval h = Gen_int();
-    double d = Dist(h.speed, h.duration);
+    while(dist_traveled < dist && p.num_range < max_int){  //Check the distance covered and the number of intervals allowed
+    Interval h = gen_int();
+    double d = dist(h.speed, h.duration);
 
-    if(distTraveled + d > dist){ 
+    if(dist_traveled + d > dist){ 
 
-    	d = dist-distTraveled;                        //Reduces the distance to the missing value
+    	d = dist-dist_traveled;                        //Reduces the distance to the missing value
     	h.duration = (int)((d/h.speed) * 60.0);
 
     }
 
-    p.intervals[p.Num_int] = h;     //Range entered in the profile
-    p.Num_int++;
+    p.intervals[p.num_range] = h;     //Range entered in the profile
+    p.num_range++;
 
-    distTraveled += d;
+    dist_traveled += d;
 
     }
 }
 
-Vehicle Gen_v(double dist, int numSv, double t_start){  //Vehicle generation
+Vehicle gen_v(double dist, int numSv, double t_start){  //Vehicle generation
 
 	Vehicle v;
 	
 	v.makePlate();
  
-	v.Sv_in = Int_random(0, numSv-2);             //Ingresso e uscita in uno svincolo casuale
-	v.Sv_out = Int_random(v.Sv_in +1, numSv - 1);
+	v.junction_in = int_random(0, num_junction-2);             //Ingresso e uscita in uno svincolo casuale
+	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
 
-	v.T_in = t_start;
+	v.time_in = t_start;
 
-	Gen_profile(v.profile, dist);
+	gen_profile(v.profile, dist);
 
 	return v;
 
 
 }
 
-void Run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
+void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
 
 	file << "<" << v.plate << "> "
-	     << "<" << v.Sv_in << "> "
-	     << "<" << v.Sv_out << "> "
-	     << fixed << setprecision(2) << "<" << v.T_in << "> ";
+	     << "<" << v.junction_in << "> "
+	     << "<" << v.junction_out << "> "
+	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
 
 
-	for(int i=0; i < v.profile.Num_int; i++){
+	for(int i=0; i < v.profile.num_range; i++){
 
 		file << "<"
 	       << v.profile.intervals[i].speed << " "
 			 << v.profile.intervals[i].duration << ">";
 
 
-	    if(i < v.profile.Num_int - 1)
+	    if(i < v.profile.num_range - 1)
 	    	file << ",";
     
     }
 
     file << endl;
 }
+
