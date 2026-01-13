@@ -67,7 +67,7 @@ Vehicle gen_v(double dist, int num_junction, double t_start){  //Vehicle generat
 	
 	v.makePlate();
  
-	v.junction_in = int_random(0, num_junction-2);             //Ingresso e uscita in uno svincolo casuale
+	v.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
 	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
 
 	v.time_in = t_start;
@@ -101,5 +101,6 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
 
     file << endl;
 }
+
 
 
