@@ -6,10 +6,10 @@
 class Gantry{
 private:
 	double gantry_dist;				// distanza (in km)
-	int gantry_id;				    // # del varco
+	int gantry_num;				    // # del varco
 public:
-	Gantry(const double& gantry_dist, const int& gantry_id);
+	Gantry(const double& gantry_dist, const int& gantry_num);
 		double get_dist() const;	
-		int get_id() const;
+		int get_num() const;
 };
 #endif
