@@ -13,10 +13,11 @@ private:
 	std::vector<Gantry> gantries;				// vettore per i varchi
 	std::vector<Junction> junctions;			// vettore per gli svincoli
 	
-	void isValid() const;			// controlla i vincoli (almeno 2 varchi, distanza minima di 1km,...)
+	void is_valid() const;			// controlla i vincoli (almeno 2 varchi, distanza minima di 1km,...)
 public:
-	void loadHighwayData(const std::string& h_data);      // prende i dati da Highway.txt (nel file main)
-	const std::vector<Gantry>& getGantries() const;
-	const std::vector<Junction>& getJunctions() const;
+	void load_highway_data(const std::string& h_data);      // prende i dati da Highway.txt (nel file main)
+	const std::vector<Gantry>& get_gantries() const;
+	const std::vector<Junction>& get_junctions() const;
 };
 #endif
+
