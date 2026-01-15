@@ -68,7 +68,7 @@ Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle gener
 
 	Vehicle v;
 	
-	v.makePlate();
+	v.make_plate();
  
 	v.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
 	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
@@ -84,7 +84,7 @@ Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle gener
 
 void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
 
-	file << "<" << v.plate << "> "
+	file << "<" << v.get_plate << "> "
 	     << "<" << v.junction_in << "> "
 	     << "<" << v.junction_out << "> "
 	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
@@ -146,6 +146,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
 
 
 
