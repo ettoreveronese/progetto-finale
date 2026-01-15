@@ -91,9 +91,10 @@ void Highway::is_valid() const{
 	}													
 }
 
+const std::vector<Gantry>& Highway::get_gantries() const{
+	return gantries;
+}
 
-
-
-
-
-
+const std::vector<Junction>& Highway::get_junctions() const{
+	return junctions;
+}
