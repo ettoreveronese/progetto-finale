@@ -128,7 +128,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 				double delta_time = (dist_missed / speed) * 3600.0;
 				double passage_time = time + delta_time;
 
-				Gantry g(v.junction_in + k);
+				Gantry g(dist_pass, v.junction_in + k);
 				Passage p(g, v, passage_time);
 
 				file << p.get_passage() << endl;
@@ -144,6 +144,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
 
 
 
