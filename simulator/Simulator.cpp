@@ -67,8 +67,6 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
 Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
 
 	Vehicle v;
-	
-	v.make_plate();
  
 	v.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
 	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
@@ -84,7 +82,7 @@ Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle gener
 
 void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
 
-	file << "<" << v.get_plate << "> "
+	file << "<" << v.get_plate() << "> "
 	     << "<" << v.junction_in << "> "
 	     << "<" << v.junction_out << "> "
 	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
@@ -131,7 +129,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 				double passage_time = time + delta_time;
 
 				Gantry g(v.junction_in + k);
-				Passage p(g, v, passage_time)
+				Passage p(g, v, passage_time);
 
 				file << p.get_passage() << endl;
 				break;
@@ -146,6 +144,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
 
 
 
