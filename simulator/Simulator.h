@@ -3,6 +3,7 @@
 #define SIMULATOR_H
 #include <iostream>
 #include <fstream>
+#include "Vehicle.h"
 
 const int num_vehicles = 10000;   //Number of vehicles
 
@@ -28,14 +29,7 @@ struct Profile{                   //Speed profile
   Interval intervals[max_int];
   int num_range;
 };
-                                  
-struct Vehicle{                    //Vehicle creation
-  char plate[dim_plate];
-  int junction_in;
-  int junction_out;
-  double time_in;
-  Profile profile;
-};
+    
 
 int int_random(int min, int max);               //Generate a random integer
 
@@ -54,6 +48,7 @@ void run(const Vehicle &v, std::ofstream &file);       //Write vehicle to file
 void passage(const Vehicle &v, std::ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
