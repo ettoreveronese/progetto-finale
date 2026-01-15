@@ -6,6 +6,7 @@
 #include "Simulator.h"
 #include "Vehicle.h"
 #include "Highway.h"
+#include "Junction.h"
 
 using namespace std;
 
@@ -46,12 +47,9 @@ int main(){
 		int in = vehicles[i].junction_in;
 		int out = vehicles[i].junction_out;
 
-		double dist_tot = highway.get_junctions() [out].get_dist
-		
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()
 
-		int num_junctions = highway.get_junctions().size();
-
-		vehicles[i] = gen_v(dist_tot, num_junctions, current_time);
+		gen_profile(vehicles[i].profile, dist_tot);
 
 		run(vehicles[i], run_file);
 		
@@ -78,6 +76,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
