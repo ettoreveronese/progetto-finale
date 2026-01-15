@@ -55,23 +55,7 @@ void Highway::is_valid() const{
 		throw std::runtime_error("Error"); 		// devono essere presenti almeno 2 varchi
 	}
 
-	int num_gantry = gantries.size();
-	int num_junctions = junctions.size();
-
-	double first_gantry_dist = gantries[0].get_dist();					// grazie all'ordinamento per distanza usato precedentemente
-	double first_junction_dist = junctions[0].get_dist();
-
-	if(first_gantry_dist < first_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
-	}			
 	
-	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
-	double last_junction_dist = junctions[num_junctions - 1].get_dist();
-
-	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-		throw std::runtime_error("Errore, dopo l'ultimo varco ci deve essere uno svincolo");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
-	}													
-
 	int v = 0; 		// indice varchi
     int s = 0; 		// indice svincoli
 
@@ -88,7 +72,25 @@ void Highway::is_valid() const{
             		++s;
         	}
     	}
+
+	int num_gantry = gantries.size();
+	int num_junctions = junctions.size();
+
+	double first_gantry_dist = gantries[0].get_dist();					// grazie all'ordinamento per distanza usato precedentemente
+	double first_junction_dist = junctions[0].get_dist();
+
+	if(first_gantry_dist < first_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}			
+	
+	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
+	double last_junction_dist = junctions[num_junctions - 1].get_dist();
+
+	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Errore, dopo l'ultimo varco ci deve essere uno svincolo");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}													
 }
+
 
 
 
