@@ -11,38 +11,12 @@
 #include <stdexcept>
 #include <algorithm>
 
-std::vector<Gantry> Tutor::parse_highway_data(const std::string& filename){
-    std::ifstream file(filename);
-    if (!file.is_open()){
-        throw std::invalid_argument("couldn't read Passages.txt");
-    }
-    
-    double dist;
-    char type;
-    std::vector<double> distances;  // distances of all gantries, to be sorted for ids
-    
-    // save the distance of gantries to distances vector
-    while (file >> dist >> type){
-        if (type == 'V'){
-           distances.push_back(dist);
-        } else if (type == 'S'){
-            continue;
-        } else {
-            throw std::invalid_argument("couldn't correctly parse Highway.txt");
-        }
-    }
-
-    std::sort(distances.begin(), distances.end());
-    
-    std::vector<Gantry> gantries;
-    
-    // create gantry objects, ids taken from index
-    for (int i=0; i<distances.size(); i++){
-        gantries.push_back(Gantry(distances[i], i));
-    }
-
-    return gantries;
+std::vector<Gantry> Tutor::gantries_from_highway(const std::string& filename){
+    Highway hw;
+    hw.load_highway_data(filename);
+    return hw.get_gantries();
 }
+
 
 // given the passages vector as reference and the path of passages.txt 
 // it stores the data in passages.txt to the passages vector, sorted by time
@@ -74,13 +48,13 @@ std::vector<Passage> Tutor::parse_passages_data(const std::string& filename, con
 
 
 Tutor::Tutor(const std::string& highway_fn, const std::string& passages_fn) :
-    gantries(parse_highway_data(highway_fn)), 
+    gantries(gantries_from_highway(highway_fn)), 
     passages(parse_passages_data(passages_fn, gantries))
 {
     interval_index = 0;
    
     stats.n_passages.assign(gantries.size(), 0);
-    stats.sanctioned = 0;
+    stats.sanctions = 0;
     stats.speed_sum = 0.0;
     stats.time_interval = 0.0;
 }
@@ -102,10 +76,6 @@ const std::vector<Tutor::Report>& Tutor::set_time(const double time_increment){
         const Passage& p = passages[i];
   
         // save passages below the gantry to stats
-        /*GantryStats gantry_stats(p.get_gantry(), 1, 0); 
-        if (!stats.gantries.insert(gantry_stats.gantry.getId(), gantry_stats).second){
-            stats.gantries[gantry_stats.gantry.getId()].passage_count++;
-        }*/
         stats.n_passages.at(p.get_gantry().get_id()) += 1;
 
         // add passages within the interval to interval_passages
@@ -135,7 +105,7 @@ const std::vector<Tutor::Report>& Tutor::set_time(const double time_increment){
             double dist = second.get_gantry().get_dist() - first->get_gantry().get_dist();
             
             if (time_g2g<=0 || dist<=0){
-                throw "error: couldn't compute avg_speed";
+                throw std::runtime_error("couldn't compute avg_speed");
             }
 
             double avg_speed = (dist / time_g2g) * 3600;  // x3600 converts to km/h 
@@ -145,7 +115,9 @@ const std::vector<Tutor::Report>& Tutor::set_time(const double time_increment){
                 Report report(*first, second, avg_speed);
                 reports.push_back(report);
 
-                stats.sanctioned++;
+                stats.sanctioned_set.insert(second.get_vehicle().get_plate());
+
+                stats.sanctions++;
                 stats.speed_sum += avg_speed;   // increment sum of all speeds
             }
 
@@ -161,16 +133,17 @@ const Tutor::Stats& Tutor::get_stats() const {
 }
 
 void Tutor::reset() {
-    interval_passages.clear();
+    // reset interval
+    interval_index = 0;
+    interval_passages.clear(); 
     reports.clear();
-
-    std::fill(stats.n_passages.begin(), stats.n_passages.end(), 0);
-
-    stats.sanctioned = 0;
+    
+    // reset stats
+    std::fill(stats.n_passages.begin(), stats.n_passages.end(), 0); 
+    stats.sanctioned_set.clear();
+    stats.sanctions = 0;
     stats.speed_sum = 0.0; // ??
-    stats.time_interval = 0.0;
-
-    interval_index=0;
+    stats.time_interval = 0.0; 
 }
 
 void Tutor::print_reports() const {
@@ -192,8 +165,9 @@ void Tutor::print_stats() const {
     for (int i=0; i<gantries.size(); i++){
         std::cout << "gantry id: " << gantries[i].get_id() << "\n";
         std::cout << "number of passages: " << stats.n_passages[i] << "\n";
+        std::cout << "passages per minute: " << stats.gantry_passages_min(i);
     }
 
     std::cout << "average speed of sanctioned vehicles: " << stats.average_speed() << "\n";
-    std::cout << "n of sanctioned vehicles: " << stats.sanctioned << "\n";
+    std::cout << "n of sanctioned vehicles: " << stats.sanctioned() << "\n";
 }
