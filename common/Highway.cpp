@@ -20,15 +20,16 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 	char type;			              // <V|S per Varco o Svincolo>
 
 	while(data >> km >> type){				// == while(data.hasNext()) ...
+
+		if(km<0){
+			throw std::runtime_error("Non valgono distanze negative");
+		}
+		
 		if(type=='S'){
 			junctions.push_back(Junction(++junction_id, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
 		}
 		else if(type=='V'){
-			if(junctions.size()==0){
-				throw std::runtime_error("Error");	// controlla che prima del primo varco ci sia almeno uno svincolo
-			} else {
-			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)
-			}
+			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
 		}
 		else{
 			throw std::runtime_error("Error");		
@@ -57,11 +58,18 @@ void Highway::is_valid() const{
 	int num_gantry = gantries.size();
 	int num_junctions = junctions.size();
 
+	double first_gantry_dist = gantries[0].get_dist();					// grazie all'ordinamento per distanza usato precedentemente
+	double first_junction_dist = junctions[0].get_dist();
+
+	if(first_gantry_dist < first_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}			
+	
 	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
 	double last_junction_dist = junctions[num_junctions - 1].get_dist();
 
 	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+		throw std::runtime_error("Errore, dopo l'ultimo varco ci deve essere uno svincolo");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
 	}													
 
 	int v = 0; 		// indice varchi
@@ -81,6 +89,7 @@ void Highway::is_valid() const{
         	}
     	}
 }
+
 
 
 
