@@ -1,6 +1,8 @@
 //Autore: Polo Tommaso
 #include "Simulator.h"
 #include "Vehicle.h"
+#include "Gantry.h"
+#include "Passage.h"
 
 #include <iostream>
 #include <fstream>
@@ -126,12 +128,12 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 			if(dist_missed <= dist_range){                           //Check if the pass is in this range
 
 				double delta_time = (dist_missed / speed) * 3600.0;
+				double passage_time = time + delta_time;
 
-				file << "<" << (v.junction_in + k) << "> "
-				     << "<" << v.plate << "> "
-				     << fixed << setprecision(2)
-				     << "<" << time + delta_time << ">" << endl;
+				Gantry g(v.junction_in + k);
+				Passage p(g, v, passage_time)
 
+				file << p.get_passage() << endl;
 				break;
 			
 			} else{                        //If there are no pass, the missing distance, the distance travelled and the time are updated.
@@ -144,6 +146,8 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
+
 
 
 
