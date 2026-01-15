@@ -16,9 +16,10 @@ private:
 	void is_valid() const;			// controlla i vincoli (almeno 2 varchi, distanza minima di 1km,...)
 public:
 	void load_highway_data(const std::string& h_data);      // prende i dati da Highway.txt (nel file main)
-	const std::vector<Gantry>& get_gantries() const {return gantries};
-	const std::vector<Junction>& get_junctions() const {return junctions};
+	const std::vector<Gantry>& get_gantries() const;
+	const std::vector<Junction>& get_junctions() const;
 };
 #endif
+
 
 
