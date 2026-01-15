@@ -14,12 +14,10 @@ int main(){
 
 	srand(time(NULL));
 
-	const double dist_tot = 130;
-
 	Highway highway;
 	
 	try{
-		highway.load_highway_data("Data/highway.txt");
+		highway.load_highway_data("Data/highway.txt");          //Validity check of passages and junctions
 	
 	}catch (runtime_error &e){
 
@@ -40,18 +38,18 @@ int main(){
 
 	double current_time = 0.0;
 	
-	for (int i = 0; i < num_vehicles; i++){
+	for (int i = 0; i < num_vehicles; i++){              //Vehicle generation
 
 		vehicles[i] = gen_v(0.0, num_junctions, current_time);
 
 		int in = vehicles[i].junction_in;
 		int out = vehicles[i].junction_out;
 
-		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()  //Calculate the distance the vehicle will travel
 
 		gen_profile(vehicles[i].profile, dist_tot);
 
-		run(vehicles[i], run_file);
+		run(vehicles[i], run_file);             //Writes the requested information to the Runs.txt file
 		
 		current_time += double_random(range_min, range_max);
 
@@ -67,7 +65,7 @@ int main(){
 	}
 
 	for(int i = 0; i < num_vehicles; i++){
-		passage(vehicles[i], pass_file, dist_tot);
+		passage(vehicles[i], pass_file, dist_tot);     //Writes to the Passages.txt file the passages crossed by each vehicle
 	}
 	
 	pass_file.close();
@@ -76,6 +74,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
