@@ -1,3 +1,4 @@
+//Autore: Polo Tommaso
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 #include <iostream>
@@ -53,6 +54,7 @@ void run(const Vehicle &v, ofstream &file);       //Write vehicle to file
 void passage(const Vehicle &v, ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 

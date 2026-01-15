@@ -1,3 +1,4 @@
+//Autore: Polo Tommaso
 #include "Simulator.h"
 #include "Vehicle.h"
 
@@ -22,7 +23,7 @@ double double_random(double min, double max){         //Random double number gen
 	return j;
 }
 
-double dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
+double dist(int speed, int duration){           //Distance calculation with conversion of minutes to hours
 
 	double d= speed*(duration/60.0);
 	return d;
@@ -39,16 +40,16 @@ Interval gen_int(){                   //random speed range generation
 
 void gen_profile(Profile &p, double dist){   //Speed profile generation
 
-	double dist_traveled = 0.0;
+	double dist_travelled = 0.0;
 	p.num_range = 0;
     
-    while(dist_traveled < dist && p.num_range < max_int){  //Check the distance covered and the number of intervals allowed
+    while(dist_travelled < dist && p.num_range < max_int){    //Check the distance covered and the number of intervals allowed
     Interval h = gen_int();
     double d = dist(h.speed, h.duration);
 
-    if(dist_traveled + d > dist){ 
+    if(dist_travelled + d > dist){ 
 
-    	d = dist-dist_traveled;                        //Reduces the distance to the missing value
+    	d = dist-dist_travelled;                        //Reduces the distance to the missing value
     	h.duration = (int)((d/h.speed) * 60.0);
 
     }
@@ -56,12 +57,12 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
     p.intervals[p.num_range] = h;     //Range entered in the profile
     p.num_range++;
 
-    dist_traveled += d;
+    dist_travelled += d;
 
     }
 }
 
-Vehicle gen_v(double dist, int num_junction, double t_start){  //Vehicle generation
+Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
 
 	Vehicle v;
 	
@@ -101,6 +102,50 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
 
     file << endl;
 }
+
+void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the crossing passages to a file
+
+	double time = v.time_in;
+	double dist_travelled = 0.0;
+
+	int num_pass = v.junction_out - v.junction_in;
+
+	for(int k = 1; k <= num_pass; k++){
+
+		double dist_pass = (dist_tot / num_pass) * k;             //Total distance from start to pass k
+		double dist_missed =dist_pass - dist_travelled;           //Distance missing to reach pass k
+
+		for(int i = 0; i < v.profile.num_range; i++){
+
+			int speed = v.profile.intervals[i].speed;
+			int duration = v.profile.intervals[i].duration;
+
+
+			double dist_range = (speed *duration) /60.0;
+
+			if(dist_missed <= dist_range){                           //Check if the pass is in this range
+
+				double delta_time = (dist_missed / speed) * 3600.0;
+
+				file << "<" << (v.junction_in + k) << "> "
+				     << "<" << v.plate << "> "
+				     << fixed << setprecision(2)
+				     << "<" << time + delta_time << ">" << endl;
+
+				break;
+			
+			} else{                        //If there are no pass, the missing distance, the distance travelled and the time are updated.
+
+				dist_missed -= dist_range;
+				dist_travelled += dist_range;
+				time += duration *60.0;
+			} 
+
+		}
+	}	
+}
+
+
 
 
 
