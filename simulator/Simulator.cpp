@@ -1,3 +1,4 @@
+//Autore: Polo Tommaso
 #include "Simulator.h"
 #include "Vehicle.h"
 
@@ -22,7 +23,7 @@ double double_random(double min, double max){         //Random double number gen
 	return j;
 }
 
-double dist(int speed, int duration){ //Distance calculation with conversion of minutes to hours
+double dist(int speed, int duration){           //Distance calculation with conversion of minutes to hours
 
 	double d= speed*(duration/60.0);
 	return d;
@@ -42,7 +43,7 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
 	double dist_travelled = 0.0;
 	p.num_range = 0;
     
-    while(dist_travelled < dist && p.num_range < max_int){  //Check the distance covered and the number of intervals allowed
+    while(dist_travelled < dist && p.num_range < max_int){    //Check the distance covered and the number of intervals allowed
     Interval h = gen_int();
     double d = dist(h.speed, h.duration);
 
@@ -61,7 +62,7 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
     }
 }
 
-Vehicle gen_v(double dist, int num_junction, double t_start){  //Vehicle generation
+Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
 
 	Vehicle v;
 	
@@ -143,6 +144,7 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
 
 
 
