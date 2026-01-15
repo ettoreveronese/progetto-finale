@@ -5,6 +5,8 @@
 
 #include "Simulator.h"
 #include "Vehicle.h"
+#include "Highway.h"
+#include "Junction.h"
 
 using namespace std;
 
@@ -12,55 +14,70 @@ int main(){
 
 	srand(time(NULL));
 
-	const double dist_tot = 130;
-	const int num_junction = 20;
+	Highway highway;
+	
+	try{
+		highway.load_highway_data("Data/highway.txt");          //Validity check of passages and junctions
+	
+	}catch (runtime_error &e){
 
-	Vehicle vehicles[num_vehicles];
+		cout << "Errore caricamento highway: " << e.what << endl;
+		return 1;
+	}
 
+    Vehicle vehicles[num_vehicles];
+	
 	ofstream run_file("Data/Runs.txt");
 
-	if(!run_file){
+	if(!run_file.in_open()){
 
 		cout<< "Errore apertura file Runs.txt" << endl;
 		return 1;
-
-	}
+	
+	 }
 
 	double current_time = 0.0;
+	
+	for (int i = 0; i < num_vehicles; i++){              //Vehicle generation
 
-	for (int i = 0; i < num_vehicles; i++){
+		vehicles[i] = gen_v(0.0, num_junctions, current_time);
 
-		vehicles[i] = gen_v(dist_tot, num_junction, current_time);
+		int in = vehicles[i].junction_in;
+		int out = vehicles[i].junction_out;
 
-		run(vehicles[i], run_file);
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()  //Calculate the distance the vehicle will travel
 
+		gen_profile(vehicles[i].profile, dist_tot);
+
+		run(vehicles[i], run_file);             //Writes the requested information to the Runs.txt file
+		
 		current_time += double_random(range_min, range_max);
 
 	}
 
 	run_file.close();
-  
+	
 	ofstream pass_file("Data/Passages.txt");
-
-	if(!pass_file){
-
+	
+	if(!pass_file.is_open()){
 		cout<< "Errore apertura file Passages.txt" << endl;
 		return 1;
 	}
 
 	for(int i = 0; i < num_vehicles; i++){
-
-		passage(vehicles[i], pass_file, dist_tot);
-
+		passage(vehicles[i], pass_file, dist_tot);     //Writes to the Passages.txt file the passages crossed by each vehicle
 	}
-
+	
 	pass_file.close();
-
+	
 	cout<< "Simulazione completata!"  << endl;
-
 	return 0;
 
 }
+
+
+
+
 
 
 

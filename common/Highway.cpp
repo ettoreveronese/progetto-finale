@@ -20,18 +20,19 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 	char type;			              // <V|S per Varco o Svincolo>
 
 	while(data >> km >> type){				// == while(data.hasNext()) ...
+
+		if(km<0){
+			throw std::runtime_error("Non valgono distanze negative");
+		}
+		
 		if(type=='S'){
 			junctions.push_back(Junction(++junction_id, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
 		}
 		else if(type=='V'){
-			if(junctions.size()==0){
-				throw std::runtime_error("Error");	// controlla che prima del primo varco ci sia almeno uno svincolo
-			} else {
-			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)
-			}
+			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
 		}
 		else{
-			throw std::runtime_error("Error");		
+			throw std::runtime_error("Errore, inserire un type valido");		
 		}
 	}
 
@@ -51,19 +52,10 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 void Highway::is_valid() const{
 
 	if(gantries.size()<2){
-		throw std::runtime_error("Error"); 		// devono essere presenti almeno 2 varchi
+		throw std::runtime_error("Errore, ci devono essere almeno 2 varchi"); 		// devono essere presenti almeno 2 varchi
 	}
 
-	int num_gantry = gantries.size();
-	int num_junctions = junctions.size();
-
-	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
-	double last_junction_dist = junctions[num_junctions - 1].get_dist();
-
-	if(last_gantry_dist > last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-		throw std::runtime_error("Error");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
-	}													
-
+	
 	int v = 0; 		// indice varchi
     int s = 0; 		// indice svincoli
 
@@ -71,7 +63,7 @@ void Highway::is_valid() const{
         	double abs_dist = std::abs(gantries[v].get_dist() - junctions[s].get_dist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
 
         	if (abs_dist < 1.0) {									// distanza assoluta per evitare errori
-            		throw std::runtime_error("Error");				// controlla che la distanza minima tra varco e svincolo sia 1km
+            		throw std::runtime_error("Errore, distanza minima: 1km");				// controlla che la distanza minima tra varco e svincolo sia 1km
         	}														// (complessità temporale migliorata dopo aver ordinato i vettori)
 
        		if (gantries[v].get_dist() < junctions[s].get_dist()) {			// aumento del varco o svincolo di distanza minima tra i due in caso ci siano ripetizioni (ad es. 2 varchi di fila prima di uno svincolo)
@@ -80,7 +72,27 @@ void Highway::is_valid() const{
             		++s;
         	}
     	}
+
+	int num_gantry = gantries.size();
+	int num_junctions = junctions.size();
+
+	double first_gantry_dist = gantries[0].get_dist();					// grazie all'ordinamento per distanza usato precedentemente
+	double first_junction_dist = junctions[0].get_dist();
+
+	if(first_gantry_dist <= first_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}			
+	
+	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
+	double last_junction_dist = junctions[num_junctions - 1].get_dist();
+
+	if(last_gantry_dist >= last_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
+		throw std::runtime_error("Errore, dopo l'ultimo varco ci deve essere uno svincolo");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+	}													
 }
+
+
+
 
 
 
