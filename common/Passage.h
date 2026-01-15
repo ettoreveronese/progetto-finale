@@ -8,12 +8,11 @@
 
 class Passage {
 private:
-    
-public:
-    const Gantry gantry;
-    const Vehicle vehicle;    
-    const double timestamp;
-    
+    Gantry gantry;
+    Vehicle vehicle;    
+    double timestamp;
+
+public: 
     //Passage();
     Passage(const Gantry& g, const Vehicle& v, const double t);
     

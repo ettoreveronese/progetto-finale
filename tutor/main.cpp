@@ -39,7 +39,7 @@ int str_to_time(const std::string& str){
 }
 
 int main() {
-    Tutor tutor("Passages.txt");
+    Tutor tutor("Highway.txt", "Passages.txt");
 
     std::string line;
     

@@ -7,7 +7,7 @@
 
 class Vehicle {
 private:
-    const std::string plate;
+    std::string plate;
 
 public:
     Vehicle();                                  // generate a new plate if none is given

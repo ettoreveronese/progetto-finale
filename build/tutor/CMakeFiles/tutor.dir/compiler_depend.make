@@ -3,6 +3,8 @@
 
 tutor/CMakeFiles/tutor.dir/Tutor.cpp.o: /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor/Tutor.cpp \
   /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Gantry.h \
+  /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Highway.h \
+  /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Junction.h \
   /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Passage.h \
   /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Vehicle.h \
   /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor/Tutor.h \
@@ -467,8 +469,6 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
 
-/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
-
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr-default.h:
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h:
@@ -571,15 +571,11 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/bits/thread-shared-types.h:
 
-/usr/include/bits/types/sigset_t.h:
-
-/usr/include/c++/15.2.1/bits/locale_classes.h:
-
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h:
 
-/usr/include/bits/types/time_t.h:
-
 /usr/include/c++/15.2.1/bits/stl_algo.h:
+
+/usr/include/bits/types/time_t.h:
 
 /usr/include/bits/types/__FILE.h:
 
@@ -595,7 +591,15 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/bits/types/struct___jmp_buf_tag.h:
 
+/usr/include/c++/15.2.1/bits/stl_algobase.h:
+
+/usr/include/bits/sched.h:
+
 /usr/include/c++/15.2.1/bits/functional_hash.h:
+
+/usr/include/bits/pthread_stack_min-dynamic.h:
+
+/usr/include/bits/long-double.h:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 
@@ -607,17 +611,11 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/asm-generic/errno.h:
 
-/usr/include/asm-generic/types.h:
-
-/usr/include/asm-generic/errno-base.h:
-
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/bits/types/clock_t.h:
 
 /usr/include/c++/15.2.1/bits/basic_ios.h:
-
-/usr/include/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/asm/types.h:
 
@@ -641,6 +639,32 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/bits/pthreadtypes-arch.h:
 
+/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/bits/time64.h:
+
+/usr/include/bits/types/__mbstate_t.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/asm/posix_types.h:
+
+/usr/include/c++/15.2.1/fstream:
+
+/usr/include/asm/posix_types_64.h:
+
+/usr/include/c++/15.2.1/bits/allocator.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
+
+/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Junction.h:
+
 /usr/include/bits/types/__fpos64_t.h:
 
 /usr/include/bits/select.h:
@@ -653,39 +677,19 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/tutor/Tutor.cpp:
 
-/usr/include/asm/posix_types.h:
+/usr/include/asm-generic/errno-base.h:
 
-/usr/include/c++/15.2.1/fstream:
-
-/usr/include/asm/posix_types_64.h:
-
-/usr/include/bits/types/__mbstate_t.h:
-
-/usr/include/bits/stdio_lim.h:
-
-/usr/include/bits/time.h:
-
-/usr/include/c++/15.2.1/bits/allocator.h:
+/usr/include/asm-generic/types.h:
 
 /usr/include/bits/types/locale_t.h:
 
 /usr/include/asm-generic/int-ll64.h:
-
-/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h:
-
-/usr/include/bits/stdlib-float.h:
-
-/usr/include/bits/time64.h:
-
-/usr/include/bits/byteswap.h:
 
 /usr/include/bits/typesizes.h:
 
 /usr/include/bits/uintn-identity.h:
 
 /usr/include/c++/15.2.1/bits/hashtable_policy.h:
-
-/usr/include/bits/long-double.h:
 
 /usr/include/features.h:
 
@@ -703,13 +707,19 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/bits/errno.h:
 
-/usr/include/bits/types/mbstate_t.h:
-
 /usr/include/bits/floatn-common.h:
+
+/home/ettore/Documents/ing-inf/progetto-finale/progetto-finale/common/Highway.h:
 
 /usr/include/c++/15.2.1/ostream:
 
 /usr/include/bits/libc-header-start.h:
+
+/usr/include/bits/types/mbstate_t.h:
+
+/usr/include/bits/types/sigset_t.h:
+
+/usr/include/c++/15.2.1/bits/locale_classes.h:
 
 /usr/include/bits/struct_rwlock.h:
 
@@ -815,9 +825,9 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 
 /usr/include/c++/15.2.1/bits/stl_construct.h:
 
-/usr/include/bits/cpu-set.h:
-
 /usr/include/c++/15.2.1/bits/cpp_type_traits.h:
+
+/usr/include/bits/cpu-set.h:
 
 /usr/include/c++/15.2.1/bits/fstream.tcc:
 
@@ -876,7 +886,3 @@ tutor/CMakeFiles/tutor.dir/main.cpp.o: /home/ettore/Documents/ing-inf/progetto-f
 /usr/include/gnu/stubs-64.h:
 
 /usr/include/c++/15.2.1/bits/std_abs.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/c++/15.2.1/bits/stl_algobase.h:
