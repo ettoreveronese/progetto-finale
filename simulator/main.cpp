@@ -45,7 +45,7 @@ int main(){
 		int in = vehicles[i].junction_in;
 		int out = vehicles[i].junction_out;
 
-		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()  //Calculate the distance the vehicle will travel
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist(); //Calculate the distance the vehicle will travel
 
 		gen_profile(vehicles[i].profile, dist_tot);
 
@@ -74,6 +74,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
