@@ -21,7 +21,7 @@ int main(){
 	
 	}catch (runtime_error &e){
 
-		cout << "Errore caricamento highway: " << e.what << endl;
+		cout << "Errore caricamento highway: " << e.what() << endl;
 		return 1;
 	}
 
@@ -80,6 +80,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
