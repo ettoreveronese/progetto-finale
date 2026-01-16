@@ -49,13 +49,14 @@ void gen_profile(Profile &p, double dist);      //Generate speed profile for a c
 
 double dist(int speed, int duration);          //Calculate distance traveled in an interval
 
-Vehicle gen_v(double dist, int num_junction, double t_start);  //Generate vehicle
+Sim_vehicle gen_v(double dist, int num_junction, double t_start);  //Generate vehicle
 
 void run(const Vehicle &v, std::ofstream &file);       //Write vehicle to file
 
 void passage(const Vehicle &v, std::ofstream &file, double distTot);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
