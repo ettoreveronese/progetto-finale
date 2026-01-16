@@ -29,7 +29,7 @@ int main(){
 	
 	ofstream run_file("Data/Runs.txt");
 
-	if(!run_file.in_open()){
+	if(!run_file.is_open()){
 
 		cout<< "Errore apertura file Runs.txt" << endl;
 		return 1;
@@ -74,6 +74,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
