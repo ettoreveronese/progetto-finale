@@ -64,23 +64,23 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
     }
 }
 
-Vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
+Sim_vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
 
-	Vehicle v;
+	Sim_vehicle sv;
  
-	v.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
-	v.junction_out = int_random(v.junction_in +1, num_junction - 1);
+	sv.junction_in = int_random(0, num_junction-2);             //Entrance and exit at a random junction
+	sv.junction_out = int_random(sv.junction_in +1, num_junction - 1);
 
-	v.time_in = t_start;
+	sv.time_in = t_start;
 
-	gen_profile(v.profile, dist);
+	gen_profile(sv.profile, dist);
 
-	return v;
+	return sv;
 
 
 }
 
-void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to file
+void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicles to file
 
 	file << "<" << v.get_plate() << "> "
 	     << "<" << v.junction_in << "> "
@@ -92,7 +92,7 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
 
 		file << "<"
 	       << v.profile.intervals[i].speed << " "
-			 << v.profile.intervals[i].duration << ">";
+		   << v.profile.intervals[i].duration << ">";
 
 
 	    if(i < v.profile.num_range - 1)
@@ -103,7 +103,7 @@ void run(const Vehicle &v, ofstream &file){        //Print generated vehicles to
     file << endl;
 }
 
-void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the crossing passages to a file
+void passage(const Sim_vehicle &v, ofstream &file, double distTot){  //Print the crossing passages to a file
 
 	double time = v.time_in;
 	double dist_travelled = 0.0;
@@ -144,6 +144,8 @@ void passage(const Vehicle &v, ofstream &file, double distTot){  //Print the cro
 		}
 	}	
 }
+
+
 
 
 

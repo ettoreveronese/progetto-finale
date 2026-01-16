@@ -80,7 +80,7 @@ void Highway::is_valid() const{
 	double first_junction_dist = junctions[0].get_dist();
 
 	if(first_gantry_dist <= first_junction_dist){				// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che dopo l'ultimo varco ci sia uno svincolo
+		throw std::runtime_error("Errore, ci deve essere uno svincolo prima di un varco");   			// controlla che prima di un varco ci sia uno svincolo
 	}			
 	
 	double last_gantry_dist = gantries[num_gantry - 1].get_dist();
@@ -98,3 +98,4 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+

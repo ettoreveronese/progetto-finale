@@ -21,7 +21,7 @@ int main(){
 	
 	}catch (runtime_error &e){
 
-		cout << "Errore caricamento highway: " << e.what << endl;
+		cout << "Errore caricamento highway: " << e.what() << endl;
 		return 1;
 	}
 
@@ -29,7 +29,7 @@ int main(){
 	
 	ofstream run_file("Data/Runs.txt");
 
-	if(!run_file.in_open()){
+	if(!run_file.is_open()){
 
 		cout<< "Errore apertura file Runs.txt" << endl;
 		return 1;
@@ -45,7 +45,7 @@ int main(){
 		int in = vehicles[i].junction_in;
 		int out = vehicles[i].junction_out;
 
-		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist()  //Calculate the distance the vehicle will travel
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist(); //Calculate the distance the vehicle will travel
 
 		gen_profile(vehicles[i].profile, dist_tot);
 
@@ -65,6 +65,12 @@ int main(){
 	}
 
 	for(int i = 0; i < num_vehicles; i++){
+
+		int in = vehicles[i].junction_in;
+		int out = vehicles[i].junction_out;
+
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist();
+		
 		passage(vehicles[i], pass_file, dist_tot);     //Writes to the Passages.txt file the passages crossed by each vehicle
 	}
 	
@@ -74,6 +80,10 @@ int main(){
 	return 0;
 
 }
+
+
+
+
 
 
 
