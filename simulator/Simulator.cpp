@@ -49,7 +49,7 @@ void gen_profile(Profile &p, double dist_tot){   //Speed profile generation
     Interval h = gen_int();
     double d = dist(h.speed, h.duration);
 
-    if(dist_travelled + d > dist){ 
+    if(dist_travelled + d > dist_tot){ 
 
     	d = dist_tot-dist_travelled;                        //Reduces the distance to the missing value
     	h.duration = (int)((d/h.speed) * 60.0);
@@ -144,6 +144,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double dist_tot){  //Print th
 		}
 	}	
 }
+
 
 
 
