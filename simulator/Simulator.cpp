@@ -103,7 +103,7 @@ void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicle
     file << endl;
 }
 
-void passage(const Sim_vehicle &v, ofstream &file, double distTot){  //Print the crossing passages to a file
+void passage(const Sim_vehicle &v, ofstream &file, double dist_tot){  //Print the crossing passages to a file
 
 	double time = v.time_in;
 	double dist_travelled = 0.0;
@@ -129,7 +129,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double distTot){  //Print the
 				double passage_time = time + delta_time;
 
 				Gantry g(dist_pass, v.junction_in + k);
-				Passage p(g, v, passage_time);
+				Passage p(g, v.vehicle, passage_time);
 
 				file << p.get_passage() << endl;
 				break;
@@ -144,6 +144,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double distTot){  //Print the
 		}
 	}	
 }
+
 
 
 
