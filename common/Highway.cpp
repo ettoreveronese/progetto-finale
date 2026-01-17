@@ -29,10 +29,14 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 			throw std::runtime_error("Non valgono distanze negative");
 		}
 		
+        std::cout << km;
+
 		if(type=='S'){
+            std::cout << "S  ";
 			junctions.push_back(Junction(++junction_id, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
 		}
 		else if(type=='V'){
+    std::cout << "V  ";
 			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
 		}
 		else{
@@ -49,6 +53,10 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
           [](const Junction& a, const Junction& b){
               return a.get_dist() < b.get_dist();
           });
+    
+    for(int i=0; i<gantries.size(); i++){
+        std::cout << "G "<< gantries[i].get_dist();
+    }
 
 	is_valid();
 }
@@ -65,7 +73,8 @@ void Highway::is_valid() const{
 
     while (v < gantries.size() && s < junctions.size()) {
         	double abs_dist = std::abs(gantries[v].get_dist() - junctions[s].get_dist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
-
+            
+            std::cout << gantries[v].get_dist() << " - " << junctions[s].get_dist() << " = " << abs_dist << "  \n";
         	if (abs_dist < 1.0) {									// distanza assoluta per evitare errori
             		throw std::runtime_error("Errore, distanza minima: 1km");				// controlla che la distanza minima tra varco e svincolo sia 1km
         	}														// (complessità temporale migliorata dopo aver ordinato i vettori)
