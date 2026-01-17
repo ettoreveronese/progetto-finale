@@ -21,8 +21,6 @@ const double range_min = 0.5;    //Time range between departures
 const double range_max = 10.0;
 
 const int max_int = 50;          //Max number of intervals
-
-const int dim_plate = 7;             //Plate length
                                  
 struct Interval{                //Constant speed interval
   int speed;
@@ -60,6 +58,7 @@ void run(const Sim_vehicle &v, std::ofstream &file);       //Write vehicle to fi
 void passage(const Sim_vehicle &v, const Highway &highway, std::ofstream &file);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
