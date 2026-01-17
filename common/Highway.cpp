@@ -14,9 +14,9 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 	if(!data.is_open()){                          //prova ad aprire il file
 		throw std::runtime_error("Error");        //se non viene aperto lancia un errore
 	}
-	
-	int gantry_id = 0;                          
-	int junction_id = 0;        
+
+	std::vector<double> gantry_dist;		// vettore con le distanze dei varchi
+	std::vector<double> junction_dist;		// vettore con le distanze degli svincoli
 	double km;			               // <distanza in km>
 	char type;			              // <V|S per Varco o Svincolo>
 
@@ -29,31 +29,25 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
         std::cout << km;
 
 		if(type=='S'){
-			junctions.push_back(Junction(0, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
+			junction_dist.push_back(km);    //inserisce nel vettore delle distanze dei varchi
 		}
 		else if(type=='V'){
-			gantries.push_back(Gantry(0, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
+			gantry_dist.push_back(km);    //inserisce nel vettore delle distanze degli svincoli
 		}
 		else{
 			throw std::runtime_error("Errore, inserire un type valido");		
 		}
 	}
 
-	std::sort(gantries.begin(), gantries.end(),			// ordina i varchi, distanza crescente
-          [](const Gantry& a, const Gantry& b){				// usato anche in altre parti del progetto sotto consiglio del mio compagno Ettore, molto utile
-              return a.get_dist() < b.get_dist();
-          });
-
-	std::sort(junctions.begin(), junctions.end(),   		// ordina gli svincoli, distanza crescente
-          [](const Junction& a, const Junction& b){
-              return a.get_dist() < b.get_dist();
-          });
+	std::sort(gantry_dist.begin(),gantry_dist.end());		// ordina il vettore delle distanze dei varchi
+	std::sort(junction_dist.begin(),junction_dist.end());		// ordina il vettore delle distanze degli svincoli
+	//ordinamento consigliato da Ettore
 
 	for (int i = 0; i < gantries.size(); ++i)
-    	gantries[i] = Gantry(i+1, gantries[i].get_dist());
+    	gantries.push_back(Ganrty(i+1,gantry_dist[i]));
 
 	for (int j = 0; j < junctions.size(); ++j)
-    	junctions[j] = Junction(j+1, junctions[j].get_dist());
+    	junctions.push_back(Junction(j+1,junction_dist[j]));
 	
 	is_valid();
 }
@@ -108,3 +102,4 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+
