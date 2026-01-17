@@ -43,10 +43,10 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 	std::sort(junction_dist.begin(),junction_dist.end());		// ordina il vettore delle distanze degli svincoli
 	//ordinamento consigliato da Ettore
 
-	for (int i = 0; i < gantries.size(); ++i)
-    	gantries.push_back(Ganrty(i+1,gantry_dist[i]));
+	for (int i = 0; i < gantry_dist.size(); ++i)
+    	gantries.push_back(Gantry(i+1,gantry_dist[i]));
 
-	for (int j = 0; j < junctions.size(); ++j)
+	for (int j = 0; j < junction_dist.size(); ++j)
     	junctions.push_back(Junction(j+1,junction_dist[j]));
 	
 	is_valid();
@@ -102,4 +102,5 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+
 
