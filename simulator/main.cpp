@@ -30,7 +30,7 @@ int main(){
 	
 	ofstream run_file("./data/Runs.txt");
 
-	if(!run_file.is_open()){
+	if(!run_file.is_open()){                                      //Check opening file
 
 		cout<< "Errore apertura file Runs.txt" << endl;
 		return 1;
@@ -46,11 +46,11 @@ int main(){
 		int in = vehicles[i].junction_in;
 		int out = vehicles[i].junction_out;
 
-		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist(); //Calculate the distance the vehicle will travel
+		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist();   //Calculate the distance the vehicle will travel
 
 		gen_profile(vehicles[i].profile, dist_tot);
 
-		run(vehicles[i], run_file);             //Writes the requested information to the Runs.txt file
+		run(vehicles[i], run_file);               //Writes the requested information to the Runs.txt file
 		
 		current_time += double_random(range_min, range_max);
 
@@ -60,14 +60,14 @@ int main(){
 	
 	ofstream pass_file("./data/Passages.txt");
 	
-	if(!pass_file.is_open()){
+	if(!pass_file.is_open()){                                    //Check opening file
 		cout<< "Errore apertura file Passages.txt" << endl;
 		return 1;
 	}
 
 	for(int i = 0; i < num_vehicles; i++){
 		
-		passage(vehicles[i], highway, pass_file);     //Writes to the Passages.txt file the passages crossed by each vehicle
+		passage(vehicles[i], highway, pass_file);       //Writes to the Passages.txt file the passages crossed by each vehicle
 	}
 	
 	pass_file.close();
@@ -76,6 +76,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
