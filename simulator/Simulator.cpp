@@ -82,7 +82,7 @@ Sim_vehicle gen_v(double dist_tot, int num_junction, double t_start){    //Vehic
 
 void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicles to file
 
-	file << "<" << v.veichle.get_plate() << "> "
+	file << "<" << v.vehicle.get_plate() << "> "
 	     << "<" << v.junction_in << "> "
 	     << "<" << v.junction_out << "> "
 	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
@@ -144,6 +144,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double dist_tot){  //Print th
 		}
 	}	
 }
+
 
 
 
