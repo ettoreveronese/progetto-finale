@@ -41,13 +41,14 @@ int str_to_time(const std::string& str){
 int main() {
         Tutor tutor("./data/Highway.txt", "./data/Passages.txt");
     std::string line;
-    
-    while(std::getline(std::cin, line)){
-        
-        std::cout << "commands:\n";
-        std::cout << "set_time <istante>        spostamento a un nuovo istante temporale \ne stampa eventuali violazioni tra l’istante \ncorrente e quello indicato\n";
-        std::cout << "reset        resetta compleatamente il sistema\n";
-        std::cout << "stats        stampa le statistiche\n";
+     
+    std::cout << "\nCOMMANDS:\n\n";
+    std::cout << "set_time <istante>\t\t\tpostamento a un nuovo istante temporale \n\t\t\t\t\te stampa eventuali violazioni tra l’istante \n\t\t\t\t\tcorrente e quello indicato\n\n";
+    std::cout << "reset\t\t\t\t\tresetta compleatamente il sistema\n\n";
+    std::cout << "stats\t\t\t\t\tstampa le statistiche\n";
+    std::cout << "\n> ";
+
+    while(std::getline(std::cin, line)){    
 
         std::istringstream iss(line);
         std::string command;
@@ -60,7 +61,7 @@ int main() {
             int time_increment = str_to_time(arg);
             
             if (time_increment <= 0){
-                std::cout << "invalid time";
+                std::cout << "invalid time\n>";
                 continue;
             }
             
@@ -74,8 +75,11 @@ int main() {
             tutor.reset();
 
         } else {
-            std::cout << "invalid command - '" << command << "'\n";
+            std::cout << "invalid command - '" << command << "'\n>";
+            continue;
         }
+
+        std::cout << "\n> ";
     }
 
     return 0;

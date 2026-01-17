@@ -51,15 +51,6 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 }
 
 void Highway::is_valid() const{
-
-    for (int i=0; i<gantries.size(); i++){
-        std::cout << gantries[i].get_dist() << " ";
-    }
-    std::cout << "\n";
-    for (int i=0; i<junctions.size(); i++){
-        std::cout << junctions[i].get_dist() << " ";
-    }
-
 	if(gantries.size()<2){
 		throw std::runtime_error("Errore, ci devono essere almeno 2 varchi"); 		// devono essere presenti almeno 2 varchi
 	}
@@ -71,7 +62,6 @@ void Highway::is_valid() const{
     while (v < gantries.size() && s < junctions.size()) {
         	double abs_dist = std::abs(gantries[v].get_dist() - junctions[s].get_dist());		// posso usarlo avendo ordinato i rispettivi vettori in ordine crescente di distanza
             
-            std::cout << gantries[v].get_dist() << " - " << junctions[s].get_dist() << " = " << abs_dist << "  \n";
         	if (abs_dist < 1.0) {									// distanza assoluta per evitare errori
             		throw std::runtime_error("Errore, distanza minima: 1km");				// controlla che la distanza minima tra varco e svincolo sia 1km
         	}														// (complessità temporale migliorata dopo aver ordinato i vettori)

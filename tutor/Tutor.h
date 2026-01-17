@@ -16,14 +16,15 @@ public:
     struct Stats{
         std::vector<int> n_passages;    // passages under each gantry  
         std::set<std::string> sanctioned_set;   // set of all sanctioned vehicles 
-                                            
-        int sanctions = 0;     // total number of sanctions
-        double speed_sum = 0.0;     // sum of the speed of all speeding vehicles, to compute average
+        
+        // used to compute average speed of all vehicles
+        int n_measures = 0;     // total number of measures between 2 gantries
+        double speed_sum = 0.0;     // sum of all measured speeds
  
         double time_interval = 0.0;     // the timestamp up to which the stats are updated
 
-        double average_speed() const { 
-            return sanctions > 0 ? speed_sum/sanctions : 0.0; 
+        double avg_speed() const { 
+            return n_measures > 0 ? speed_sum/n_measures : 0.0; 
         }
         
         double gantry_passages_min(int i) const {  // passages per min below a gantry
@@ -67,7 +68,7 @@ private:
     const std::vector<Gantry> gantries;     // gantries sorted by id, taken from Highway.txt
     const std::vector<Passage> passages;    // all the passages under the gantries, sorted by time
     
-    std::unordered_map<std::string, std::vector<Passage>> interval_passages;    // passages in the time interval, grouped by plate
+    std::unordered_map<std::string, Passage> last_passages;    // passages in the time interval, grouped by plate
     std::vector<Report> reports;    
     Stats stats;
 
