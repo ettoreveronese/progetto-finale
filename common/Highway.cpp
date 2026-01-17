@@ -26,8 +26,6 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 			throw std::runtime_error("Non valgono distanze negative");
 		}
 		
-        std::cout << km;
-
 		if(type=='S'){
 			junction_dist.push_back(km);    //inserisce nel vettore delle distanze dei varchi
 		}
@@ -53,6 +51,14 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 }
 
 void Highway::is_valid() const{
+
+    for (int i=0; i<gantries.size(); i++){
+        std::cout << gantries[i].get_dist() << " ";
+    }
+    std::cout << "\n";
+    for (int i=0; i<junctions.size(); i++){
+        std::cout << junctions[i].get_dist() << " ";
+    }
 
 	if(gantries.size()<2){
 		throw std::runtime_error("Errore, ci devono essere almeno 2 varchi"); 		// devono essere presenti almeno 2 varchi
