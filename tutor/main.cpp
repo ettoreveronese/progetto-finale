@@ -39,8 +39,7 @@ int str_to_time(const std::string& str){
 }
 
 int main() {
-    Tutor tutor("Highway.txt", "Passages.txt");
-
+        Tutor tutor("./data/Highway.txt", "./data/Passages.txt");
     std::string line;
     
     while(std::getline(std::cin, line)){

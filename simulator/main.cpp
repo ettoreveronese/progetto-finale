@@ -28,7 +28,7 @@ int main(){
 
     Sim_vehicle vehicles[num_vehicles];
 	
-	ofstream run_file("Data/Runs.txt");
+	ofstream run_file("./data/Runs.txt");
 
 	if(!run_file.is_open()){
 
@@ -58,7 +58,7 @@ int main(){
 
 	run_file.close();
 	
-	ofstream pass_file("Data/Passages.txt");
+	ofstream pass_file("./data/Passages.txt");
 	
 	if(!pass_file.is_open()){
 		cout<< "Errore apertura file Passages.txt" << endl;
