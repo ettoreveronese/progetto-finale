@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include "Highway.h"
 
 void Highway::load_highway_data(const std::string& data_h){        // da leggere nel main

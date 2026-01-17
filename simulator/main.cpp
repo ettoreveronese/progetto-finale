@@ -16,7 +16,7 @@ int main(){
 	Highway highway;
 
 	try{
-		highway.load_highway_data("Data/highway.txt");          //Validity check of passages and junctions
+		highway.load_highway_data("./data/Highway.txt");          //Validity check of passages and junctions
 	
 	}catch (runtime_error &e){
 
