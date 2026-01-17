@@ -66,13 +66,8 @@ int main(){
 	}
 
 	for(int i = 0; i < num_vehicles; i++){
-
-		int in = vehicles[i].junction_in;
-		int out = vehicles[i].junction_out;
-
-		double dist_tot = highway.get_junctions() [out].get_dist() - highway.get_junctions() [in].get_dist();
 		
-		passage(vehicles[i], pass_file, dist_tot);     //Writes to the Passages.txt file the passages crossed by each vehicle
+		passage(vehicles[i], highway, pass_file);     //Writes to the Passages.txt file the passages crossed by each vehicle
 	}
 	
 	pass_file.close();
@@ -81,6 +76,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
