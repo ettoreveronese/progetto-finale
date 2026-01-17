@@ -103,47 +103,67 @@ void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicle
     file << endl;
 }
 
-void passage(const Sim_vehicle &v, ofstream &file, double dist_tot){  //Print the crossing passages to a file
+void passage(const Sim_vehicle &v, const Highway& highway, ofstream &file){  //Print the crossing passages to a file
 
 	double time = v.time_in;
 	double dist_travelled = 0.0;
 
-	int num_pass = v.junction_out - v.junction_in;
+	const auto& gantries = highway.get_gantries();    //Tutti i varchi/svincoli nell'autostrada
+	const auto& junctions = highway.get_junctions();  
 
-	for(int k = 1; k <= num_pass; k++){
+	double dist_in = junctions[v.junction_in].get_dist();   //Distanza reale dell'ingresso/uscita del veicolo
+	double dist_out = junctions[v.junction_out].get_dist();
 
-		double dist_pass = (dist_tot / num_pass) * k;             //Total distance from start to pass k
-		double dist_missed =dist_pass - dist_travelled;           //Distance missing to reach pass k
+	int v_range = 0;
+	double dist_remaining = (v.profile.num_range > 0) ?           //Distanza mancante nell'intervallo
+	                        dist(v.profile.intervals[0].speed,
+	                        	 v.profile.intervals[0].duration)
+	                        :0.0;
 
-		for(int i = 0; i < v.profile.num_range; i++){
+	for(const Gantry& g : gantries){         //Calcolo distanza dall'ingresso per ogni varco
 
-			int speed = v.profile.intervals[i].speed;
-			int duration = v.profile.intervals[i].duration;
+		double g_dist = g.get_dist();
+
+		
+		if(g_dist <= dist_in || g_dist >= dist_out)    //Salta i varchi fuori dal percorso
+			continue;
+
+		
+		double dist_to_gantry = g_dist - dist_in;
 
 
-			double dist_range = (speed *duration) /60.0;
+		while(dist_travelled + dist_remaining < dist_to_gantry){
 
-			if(dist_missed <= dist_range){                           //Check if the pass is in this range
+			dist_travelled += dist_remaining;
+			time += (dist_remaining / v.profile.intervals[v_range].speed) * 3600.0;
 
-				double delta_time = (dist_missed / speed) * 3600.0;
-				double passage_time = time + delta_time;
+			v_range++;
 
-				Gantry g(v.junction_in + k, dist_pass);
-				Passage p(g, v.vehicle, passage_time);
+			if(v_range >= v.profile.num_range)
+				return;
 
-				file << p.get_passage() << endl;
-				break;
-			
-			} else{                        //If there are no pass, the missing distance, the distance travelled and the time are updated.
-
-				dist_missed -= dist_range;
-				dist_travelled += dist_range;
-				time += duration *60.0;
-			} 
-
+			dist_remaining = (v.profile.intervals[v_range].speed *
+				              v.profile.intervals[v_range].duration)
+							  /60.0;
 		}
-	}	
+
+		double dist_missed =dist_to_gantry - dist_travelled; 
+	    double delta_time = (dist_missed / v.profile.intervals[v_range].speed) * 3600.0;
+	    double passage_time = time + delta_time;
+
+	
+	    Passage p(g, v.vehicle, passage_time);
+        file << p.get_passage() << endl;
+
+
+     }
 }
+
+
+		
+		
+
+
 
 
 
