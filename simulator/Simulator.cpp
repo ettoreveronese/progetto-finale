@@ -37,6 +37,7 @@ Interval gen_int(){                   //random speed range generation
 	Interval v;
 	v.speed=int_random(v_min, v_max);
 	v.duration=int_random(d_min, d_max);
+	
 	return v;
 }
 
@@ -46,20 +47,21 @@ void gen_profile(Profile &p, double dist_tot){   //Speed profile generation
 	p.num_range = 0;
     
     while(dist_travelled < dist_tot && p.num_range < max_int){    //Check the distance covered and the number of intervals allowed
-    Interval h = gen_int();
-    double d = dist(h.speed, h.duration);
+    	
+		Interval h = gen_int();
+   	 	double d = dist(h.speed, h.duration);
 
-    if(dist_travelled + d > dist_tot){ 
+    	if(dist_travelled + d > dist_tot){ 
 
-    	d = dist_tot-dist_travelled;                        //Reduces the distance to the missing value
-    	h.duration = (int)((d/h.speed) * 60.0);
+    		d = dist_tot-dist_travelled;                        //Reduces the distance to the missing value
+    		h.duration = (int)((d/h.speed) * 60.0);
 
-    }
+        }
 
-    p.intervals[p.num_range] = h;     //Range entered in the profile
-    p.num_range++;
+   	    p.intervals[p.num_range] = h;     //Range entered in the profile
+        p.num_range++;
 
-    dist_travelled += d;
+        dist_travelled += d;
 
     }
 }
@@ -90,12 +92,10 @@ void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicle
 
 	for(int i=0; i < v.profile.num_range; i++){
 
-		file << "<"
-	       << v.profile.intervals[i].speed << " "
-		   << v.profile.intervals[i].duration << ">";
+		file << "<" << v.profile.intervals[i].speed << " "
+		            << v.profile.intervals[i].duration << ">";
 
-
-	    if(i < v.profile.num_range - 1)
+		if(i < v.profile.num_range - 1)
 	    	file << ",";
     
     }
@@ -108,51 +108,49 @@ void passage(const Sim_vehicle &v, const Highway& highway, ofstream &file){  //P
 	double time = v.time_in;
 	double dist_travelled = 0.0;
 
-	const auto& gantries = highway.get_gantries();    //Tutti i varchi/svincoli nell'autostrada
+	const auto& gantries = highway.get_gantries();    //All the gantries/junctions in the highway
 	const auto& junctions = highway.get_junctions();  
 
-	double dist_in = junctions[v.junction_in].get_dist();   //Distanza reale dell'ingresso/uscita del veicolo
+	double dist_in = junctions[v.junction_in].get_dist();   //Actual vehicle entry/exit distance
 	double dist_out = junctions[v.junction_out].get_dist();
 
 	int v_range = 0;
-	double dist_remaining = (v.profile.num_range > 0) ?           //Distanza mancante nell'intervallo
-	                        dist(v.profile.intervals[0].speed,
-	                        	 v.profile.intervals[0].duration)
-	                        :0.0;
+	double dist_remaining = (v.profile.num_range > 0) ?                                                 //Missing distance in range
+	                        dist(v.profile.intervals[0].speed, v.profile.intervals[0].duration) : 0.0;
+	                        
 
-	for(const Gantry& g : gantries){         //Calcolo distanza dall'ingresso per ogni varco
+	for(const Gantry& g : gantries){         //Calculate the distance from the entrance for each gantries
 
 		double g_dist = g.get_dist();
 
 		
-		if(g_dist <= dist_in || g_dist >= dist_out)    //Salta i varchi fuori dal percorso
+		if(g_dist <= dist_in || g_dist >= dist_out){    //Skip gantries off the path
 			continue;
-
+		}
 		
-		double dist_to_gantry = g_dist - dist_in;
+		double dist_gantry = g_dist - dist_in;
 
-
-		while(dist_travelled + dist_remaining < dist_to_gantry){
+        while(dist_travelled + dist_remaining < dist_gantry){    //Gantry position control
 
 			dist_travelled += dist_remaining;
 			time += (dist_remaining / v.profile.intervals[v_range].speed) * 3600.0;
 
 			v_range++;
 
-			if(v_range >= v.profile.num_range)
+			if(v_range >= v.profile.num_range){
 				return;
+			}
 
-			dist_remaining = (v.profile.intervals[v_range].speed *
-				              v.profile.intervals[v_range].duration)
-							  /60.0;
+			dist_remaining = (v.profile.intervals[v_range].speed * v.profile.intervals[v_range].duration) / 60.0;
+
 		}
 
-		double dist_missed =dist_to_gantry - dist_travelled; 
+		double dist_missed =dist_gantry - dist_travelled; 
 	    double delta_time = (dist_missed / v.profile.intervals[v_range].speed) * 3600.0;
 	    double passage_time = time + delta_time;
 
 	
-	    Passage p(g, v.vehicle, passage_time);
+	    Passage p(g, v.vehicle, passage_time);   //Object representing the passage through the gantry
         file << p.get_passage() << endl;
 
 
@@ -162,6 +160,7 @@ void passage(const Sim_vehicle &v, const Highway& highway, ofstream &file){  //P
 
 		
 		
+
 
 
 
