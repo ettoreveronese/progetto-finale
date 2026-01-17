@@ -8,9 +8,6 @@
 #include "Highway.h"
 
 void Highway::load_highway_data(const std::string& data_h){        // da leggere nel main
-
-	gantries.clear();
-	junctions.clear();
 	
 	std::ifstream data(data_h);
 
@@ -102,5 +99,6 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+
 
 
