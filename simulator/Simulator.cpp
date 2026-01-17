@@ -73,7 +73,7 @@ Sim_vehicle gen_v(double dist_tot, int num_junction, double t_start){    //Vehic
 
 	sv.time_in = t_start;
 
-	gen_profile(sv.profile, dist);
+	gen_profile(sv.profile, dist_tot);
 
 	return sv;
 
@@ -144,6 +144,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double dist_tot){  //Print th
 		}
 	}	
 }
+
 
 
 
