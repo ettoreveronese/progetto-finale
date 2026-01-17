@@ -52,7 +52,7 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 	}
 
 	for (int j = 0; j < junctions.size(); ++j){
-   		 junctions[i] = Junction(i+1, junctions[i].get_dist());
+   		 junctions[j] = Junction(j+1, junctions[j].get_dist());
 	}
 
 	is_valid();
@@ -107,6 +107,7 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+
 
 
 
