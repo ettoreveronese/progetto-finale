@@ -6,7 +6,6 @@
 #include "Simulator.h"
 #include "Vehicle.h"
 #include "Highway.h"
-#include "Junction.h"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ int main(){
 	srand(time(NULL));
 
 	Highway highway;
-	
+
 	try{
 		highway.load_highway_data("Data/highway.txt");          //Validity check of passages and junctions
 	
@@ -25,7 +24,9 @@ int main(){
 		return 1;
 	}
 
-    Vehicle vehicles[num_vehicles];
+	int num_junctions = highway.get_junctions().size();
+
+    Sim_vehicle vehicles[num_vehicles];
 	
 	ofstream run_file("Data/Runs.txt");
 
@@ -80,6 +81,7 @@ int main(){
 	return 0;
 
 }
+
 
 
 
