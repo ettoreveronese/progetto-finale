@@ -40,18 +40,18 @@ Interval gen_int(){                   //random speed range generation
 	return v;
 }
 
-void gen_profile(Profile &p, double dist){   //Speed profile generation
+void gen_profile(Profile &p, double dist_tot){   //Speed profile generation
 
 	double dist_travelled = 0.0;
 	p.num_range = 0;
     
-    while(dist_travelled < dist && p.num_range < max_int){    //Check the distance covered and the number of intervals allowed
+    while(dist_travelled < dist_tot && p.num_range < max_int){    //Check the distance covered and the number of intervals allowed
     Interval h = gen_int();
     double d = dist(h.speed, h.duration);
 
     if(dist_travelled + d > dist){ 
 
-    	d = dist-dist_travelled;                        //Reduces the distance to the missing value
+    	d = dist_tot-dist_travelled;                        //Reduces the distance to the missing value
     	h.duration = (int)((d/h.speed) * 60.0);
 
     }
@@ -64,7 +64,7 @@ void gen_profile(Profile &p, double dist){   //Speed profile generation
     }
 }
 
-Sim_vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle generation
+Sim_vehicle gen_v(double dist_tot, int num_junction, double t_start){    //Vehicle generation
 
 	Sim_vehicle sv;
  
@@ -82,7 +82,7 @@ Sim_vehicle gen_v(double dist, int num_junction, double t_start){    //Vehicle g
 
 void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicles to file
 
-	file << "<" << v.get_plate() << "> "
+	file << "<" << v.veichle.get_plate() << "> "
 	     << "<" << v.junction_in << "> "
 	     << "<" << v.junction_out << "> "
 	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
@@ -144,6 +144,7 @@ void passage(const Sim_vehicle &v, ofstream &file, double distTot){  //Print the
 		}
 	}	
 }
+
 
 
 
