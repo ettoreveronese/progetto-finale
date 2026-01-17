@@ -27,10 +27,10 @@ void Highway::load_highway_data(const std::string& data_h){        // da leggere
 		}
 		
 		if(type=='S'){
-			junctions.push_back(Junction(++junction_id, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
+			junctions.push_back(Junction(0, km));    //inserisce nell'apposito vettore lo svincolo (aumenta di 1 il #)
 		}
 		else if(type=='V'){
-			gantries.push_back(Gantry(++gantry_id, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
+			gantries.push_back(Gantry(0, km));    //inserisce nell'apposito vettore il varco (aumenta di 1 il #)	
 		}
 		else{
 			throw std::runtime_error("Errore, inserire un type valido");		
@@ -99,6 +99,7 @@ const std::vector<Gantry>& Highway::get_gantries() const{
 const std::vector<Junction>& Highway::get_junctions() const{
 	return junctions;
 }
+
 
 
 
