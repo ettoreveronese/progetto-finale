@@ -34,7 +34,7 @@ struct Profile{                   //Speed profile
   int num_range;
 };
 
-struct Sim_vehicle{
+struct Sim_vehicle{               //Vehicle creation
   Vehicle vehicle;
   int junction_in;
   int junction_out;
@@ -60,6 +60,7 @@ void run(const Sim_vehicle &v, std::ofstream &file);       //Write vehicle to fi
 void passage(const Sim_vehicle &v, const Highway &highway, std::ofstream &file);  ////Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
