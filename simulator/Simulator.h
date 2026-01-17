@@ -47,7 +47,7 @@ double double_random(double min, double max);   //Generate a random double
 
 Interval gen_int();                           //Generate random speed range
 
-void gen_profile(Profile &p, double dist);      //Generate speed profile for a certain distance
+void gen_profile(Profile &p, double dist_tot);      //Generate speed profile for a certain distance
 
 double dist(int speed, int duration);          //Calculate distance traveled in an interval
 
@@ -55,9 +55,10 @@ Sim_vehicle gen_v(double dist, int num_junction, double t_start);  //Generate ve
 
 void run(const Sim_vehicle &v, std::ofstream &file);       //Write vehicle to file
 
-void passage(const Sim_vehicle &v, const Highway &highway, std::ofstream &file);  ////Write the passed gates and at what time to the file
+void passage(const Sim_vehicle &v, const Highway &highway, std::ofstream &file);     //Write the passed gates and at what time to the file
 
 #endif
+
 
 
 
