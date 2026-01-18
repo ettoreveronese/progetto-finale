@@ -10,15 +10,12 @@ private:
     std::string plate;
 
 public:
-    Vehicle();                                  // generate a new plate if none is given
+    Vehicle();                                  // crea una nuova targa (se non ne esiste una)
     explicit Vehicle(const std::string& p);
     
-    const std::string& get_plate() const;       // returns the plate of the current vehicle
-    static std::string make_plate();     // returns a newly generated plate
+    const std::string& get_plate() const;       // restituisce la targa
+    static std::string make_plate();     // restituisce una nuova targa
     
-    // returns true if the given plate is valid
-    static bool is_valid_plate(const std::string& plate);    
+    static bool is_valid_plate(const std::string& plate);    // controllo validità della targa
 };
-
-
 #endif
