@@ -4,8 +4,6 @@
 #include "Passage.h"
 #include "Vehicle.h"
 
-//Passage::Passage(){}
-
 Passage::Passage(const Gantry& g, const Vehicle& v, const double t) : gantry(g), vehicle(v), timestamp(t) {}
 
 const Gantry& Passage::get_gantry() const { return gantry; }
