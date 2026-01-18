@@ -1,4 +1,4 @@
-// autore: ettore veronese
+// Autore : Paolo Gasparato
 
 #ifndef VEHICLE_H
 #define VEHICLE_H

@@ -1,3 +1,4 @@
+# Autore : Paolo Gasparato
 add_library(common
     Gantry.cpp
     Highway.cpp

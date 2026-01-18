@@ -1,4 +1,4 @@
-// autore: ettore veronese
+// Autore : Paolo Gasparato
 
 #ifndef PASSAGE_H
 #define PASSAGE_H

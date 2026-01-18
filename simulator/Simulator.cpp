@@ -84,16 +84,16 @@ Sim_vehicle gen_v(double dist_tot, int num_junction, double t_start){    //Vehic
 
 void run(const Sim_vehicle &v, ofstream &file){        //Print generated vehicles to file
 
-	file << "<" << v.vehicle.get_plate() << "> "
-	     << "<" << v.junction_in << "> "
-	     << "<" << v.junction_out << "> "
-	     << fixed << setprecision(2) << "<" << v.time_in << "> ";
+	file << v.vehicle.get_plate() << " "
+	     << v.junction_in << " "
+	     << v.junction_out << " "
+	     << fixed << setprecision(2) << v.time_in << " ";
 
 
 	for(int i=0; i < v.profile.num_range; i++){
 
-		file << "<" << v.profile.intervals[i].speed << " "
-		            << v.profile.intervals[i].duration << ">";
+		file    << v.profile.intervals[i].speed << " "
+		        << v.profile.intervals[i].duration << " ";
 
 		if(i < v.profile.num_range - 1)
 	    	file << ",";

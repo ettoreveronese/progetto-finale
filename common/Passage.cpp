@@ -1,4 +1,4 @@
-// autore: ettore veronese
+// Autore : Paolo Gasparato
 
 #include "Gantry.h"
 #include "Passage.h"

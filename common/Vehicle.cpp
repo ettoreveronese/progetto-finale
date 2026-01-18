@@ -1,4 +1,4 @@
-// autore: ettore veronese
+// Autore : Paolo Gasparato
 
 #include "Vehicle.h"
 

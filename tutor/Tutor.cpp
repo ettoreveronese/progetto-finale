@@ -135,7 +135,7 @@ void Tutor::reset() {
 }
 
 void Tutor::print_reports() const {
-    std::cout << "\n\nREPORTS:\n";
+    std::cout << "\nREPORTS:\n";
     
     for (int i=0; i<reports.size(); i++){
         const Report& r = reports[i];
@@ -150,7 +150,7 @@ void Tutor::print_reports() const {
 }
 
 void Tutor::print_stats() const {
-    std::cout << "\n\nSTATS: (" << stats.time_interval/60 << " minutes)\n";
+    std::cout << "\nSTATS: (" << stats.time_interval/60 << " minutes)\n";
     
     for (int i=0; i<gantries.size(); i++){
         std::cout << "\ngantry id: " << gantries[i].get_id() << "\n";
@@ -158,7 +158,7 @@ void Tutor::print_stats() const {
         std::cout << "passages per minute: " << stats.gantry_passages_min(i) << "\n";
     }
     std::cout << "\n\n";
-    std::cout << "average speed of all vehicles: " << stats.avg_speed() << "\n";
+    std::cout << "average speed: " << stats.avg_speed() << "\n";
     std::cout << "n of sanctioned vehicles: " << stats.sanctioned() << "\n";
     std::cout << "\n\n";
 }
