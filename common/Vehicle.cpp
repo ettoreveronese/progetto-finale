@@ -23,19 +23,19 @@ std::string Vehicle::make_plate() {
     std::random_device rd;
     std::mt19937 gen(rd());
     
-    // generate random chars in the specified intervals
+    // genera random char per creare la targa
     std::uniform_int_distribution<> cDist('A', 'Z');
     std::uniform_int_distribution<> iDist('0', '9');
 
-    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 capital letters
-    for (int i=0; i<3; i++){ new_plate+=iDist(gen); }   // add 3 integers
-    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // add 2 capital letters
+    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // aggiunge 2 lettere 
+    for (int i=0; i<3; i++){ new_plate+=iDist(gen); }   // aggiunge 3 numeri
+    for (int i=0; i<2; i++){ new_plate+=cDist(gen); }   // aggiunge 2 lettere 
 
     return new_plate;
 }
 
 bool Vehicle::is_valid_plate(const std::string& plate){
-    if (plate.size() != 7){ return false; }     // if size != 7 it can't be a number plate
+    if (plate.size() != 7){ return false; }             // controlla che la targa sia valida
     
     // check if the format is correct
     for (int i=0; i<2; i++){
